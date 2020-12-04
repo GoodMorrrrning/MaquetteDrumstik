@@ -2,32 +2,146 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MaquetteDrumstik"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
-        Background="#195e83"
-        Title="MainWindow" Height="530" Width="1100">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Style="{StaticResource PrimaryBackgroundWin}"
+        Title="MainWindow" Height="560" Width="1172">
 
 
-    <FlowDocumentScrollViewer
-        
-      VerticalScrollBarVisibility="Disabled"
-      HorizontalScrollBarVisibility="Disabled">
+    <Grid RenderTransformOrigin="0.502,0.542">
 
-        
-        <FlowDocument FontFamily="Century gothic" TextAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="1" Grid.ColumnSpan="2" Margin="0,0,1164,0">
+
+            <!--
             
-            
-           
-            <Table Name="myTable">
-                
+             <TextBlock Foreground="{StaticResource Txt}" Text="Test1" HorizontalAlignment="Center" Margin="198,10,-106,-4" FontSize="28" Width="78"/>
+            <TextBlock Foreground="{StaticResource Txt}" Text="Test2" HorizontalAlignment="Center" Margin="321,10,-212,-4" FontSize="28" Width="61"/>
+            <TextBlock Foreground="{StaticResource Txt}" Text="Test3" HorizontalAlignment="Center" Margin="445,10,-353,-4" FontSize="28" Width="78"/>
+            -->
+        </Grid>
 
-            </Table>
-            
-        </FlowDocument>
-    </FlowDocumentScrollViewer>
+        <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1" Margin="0,50,0,199" VerticalAlignment="Top">
+
+            <StackPanel Orientation="Horizontal">
+                <!-- <TextBlock Text="Contenu en Ligne" Foreground="{StaticResource Txt}" Margin="10" FontSize="22" FontWeight="Medium"/> -->
+                <StackPanel Margin="20 0" Orientation="Horizontal">
+                    <ListBox x:Name="unexo" ItemsSource="{Binding Path=currentExercices}" Background="{StaticResource Primary}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
+                                <StackPanel>
+                                    <Border  Height="100" Width="130" CornerRadius="5" Margin="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="1"/>
+                                        </Border.Effect>
+                                        <Border.Background>
+
+                                            <ImageBrush ImageSource="{Binding ThumbnailLocalPath}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock x:Name="poggers" Foreground="{StaticResource Txt}" Margin="5" Text="{Binding title, StringFormat=\{0:C\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="27" FontFamily="Franklin Gothic Medium"/>
+
+                                    <TextBlock Margin="5 0"  FontSize="15" Foreground="{StaticResource Txt}"><Run Text="Niveau de l'exercice : "/><Run Text=" "/><Run Text="{Binding level}"/></TextBlock>
+                                    <TextBox x:Name="twoo" Text="{Binding ElementName=poggers, Mode=TwoWay, Path=Text, UpdateSourceTrigger=PropertyChanged}" Background="{StaticResource Primary}" Foreground="{StaticResource Txt}" IsReadOnly="False"  HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="134"  BorderBrush="White" Height="150" MinWidth="100" MinHeight="97" TextChanged="twoo_TextChanged"/>
+                                </StackPanel>
+                                <!-- </Border> -->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+
+                    <ListBox x:Name="ListViewProducts" Background="{StaticResource Primary}" ItemsSource="{Binding Path=exercices}" Loaded="ListViewProducts_Loaded">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
+                                <StackPanel>
+                                    <Border  Height="100" Width="100"  CornerRadius="5" Margin="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="1"/>
+                                        </Border.Effect>
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding ThumbnailLocalPath}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Foreground="{StaticResource Txt}" Margin="5" Text="{Binding title}" FontSize="17" FontFamily="Franklin Gothic Medium"/>
+
+                                    <TextBlock Margin="5 0"  FontSize="15" Foreground="{StaticResource Txt}"><Run Text="Niveau de l'exercice : "/><Run Text=" "/><Run Text="{Binding level}"/></TextBlock>
+
+                                </StackPanel>
+                                <!-- </Border> -->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+                    <ItemsControl x:Name="lesimages">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
+
+
+                                <TextBlock Text="{Binding path}"  Foreground="{StaticResource Txt}" FontSize="17"></TextBlock>
+                                <!-- </Border> -->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <TextBox Template="{StaticResource TextBoxBaseControlTemplate}" Name="Recherche" Grid.Column="1" Height="23" Margin="0,13,114,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="Recherche_TextChanged_1" Tag ="Rechercher un Exercice..." HorizontalAlignment="Right"/>
+        <ToolBar x:Name="LaToolbar" Background="{StaticResource Secondary}" Grid.Column="1" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="650" Loaded="LaToolbar_Loaded" Margin="10,-5,0,0">
+            <Button Background="Transparent" Name="btnacc">
+                <Image Source="Asset/D.png" HorizontalAlignment="Right" Height="30" Width="32"></Image>
+            </Button>
+            <Button Background="Transparent" Name="btn1">
+                <TextBlock Padding="5" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Text="Online Content"  Foreground="{StaticResource Txt}" Margin="0,10,0,9" Height="40"/>
+            </Button>
+            <Button Background="Transparent" Name="btn2">
+                <TextBlock Padding="5" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="129" Text="My Files"  Foreground="{StaticResource Txt}" Margin="0,10,0,9" Height="39"/>
+            </Button>
+            <Button Background="Transparent" Name="btn3">
+                <TextBlock Padding="5" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="116" Text="Virtual Kit"  Foreground="{StaticResource Txt}" Margin="0,10,0,9" Height="38"/>
+            </Button>
+        </ToolBar>
+        <Button Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" Margin="0,13,81,0" VerticalAlignment="Top" Width="28" Height="27" RenderTransformOrigin="3.339,0.907">
+            <Image Source="Asset/Unecloche.png" HorizontalAlignment="Right"></Image>
+        </Button>
+        <Button Name="SliderGauche" Background="Transparent" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,21,108,0" Grid.Row="1" VerticalAlignment="Top" Width="37" Click="SliderGauche_Click" Height="24">
+            <Image Source="Asset/chleft-w.png" HorizontalAlignment="Right"></Image>
+        </Button>
+        <Button Background="Transparent" Name="sliderDroit" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,21,66,0" Grid.Row="1" VerticalAlignment="Top" Width="37" Click="sliderDroit_Click" Height="24">
+            <Image Source="Asset/chright-w.png"></Image>
+        </Button>
+
+        <Button Grid.ColumnSpan="2" Content="RefreshToken" HorizontalAlignment="Left" Margin="1050,426,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Grid.ColumnSpan="2" Content="Modifier" HorizontalAlignment="Left" Margin="10,440,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="29" Click="Button_Click_2"/>
 
 
 
 
+    </Grid>
 </Window>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -12,84 +13,287 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Caching;
+
+using Path = System.IO.Path;
+using Nancy.Json;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.ComponentModel;
+using MaquetteDrumstik.API;
+using MaquetteDrumstik.Model;
+using Nancy.ModelBinding;
+using System.Collections.ObjectModel;
+using Aspose.Cells.Drawing;
 
 namespace MaquetteDrumstik
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
+        //DataExo Datas = new DataExo();
+      public ObservableCollection<Exercice> exercices { get; set; } = new ObservableCollection<Exercice>();
+       
+        APIDrumstik api = new APIDrumstik();
+        List<APIExercice> apiExercices = new List<APIExercice>();
+
+        
+        public ObservableCollection<Exercice> currentExercices { get; set; }
+    = new ObservableCollection<Exercice>();
+
+       
         public MainWindow()
         {
+          
+
             InitializeComponent();
-            // instantiation de Data (qui contient les ExoBatt)
-            DataExo Datas = new DataExo();
-            List<ExoBatt> ListeExoBatt = new List<ExoBatt>();
-            ListeExoBatt = Datas.GetExoBatterie();
+           
+            this.DataContext = this;
+            apiExercices = api.GetExercices();
+            Exercice e = new Exercice(apiExercices);
+            this.MinWidth = 930;
+            this.MinHeight = 450;
 
-            int cols = 3;
-            int i = 0;
-            int nombreLigne = 0;
+             scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
-            if (ListeExoBatt.Count % cols == 0)
+            Cache cache = new Cache();
+
+            foreach (APIExercice apiEx in apiExercices)
             {
-                nombreLigne = ListeExoBatt.Count / cols;
+                Exercice exercice = new Exercice(apiEx);
+
+                APIResource thumbnailRes = exercice.getThumbnailResource();
+                if (thumbnailRes != null)
+                {
+                    string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
+                    if (thumbnailLocalPath == null)
+                    {
+                        thumbnailLocalPath = cache.downloadThumbnailAsync(thumbnailRes).Result;
+
+                    }
+
+                    exercice.ThumbnailLocalPath = thumbnailLocalPath;
+                  
+                }
+                
+               
+                
+                exercices.Add(exercice);
+
+            }
+            
+            if (exercices.Count > 0)
+            {
+                currentExercices.Add(exercices.First());
+
+            }
+            Diapo();
+            UpdateExercices(exercices);
+            
+        }
+      
+
+       
+
+
+        public void UpdateExercices(ObservableCollection<Exercice> filteredExercices)
+        {
+            
+            ListViewProducts.ItemsSource = filteredExercices;
+           // ListViewProducts.Items.Refresh();
+        }
+
+
+        public ObservableCollection<Exercice> FilterExercices(string userSearch)
+        {
+            ObservableCollection<Exercice> FiltreGrille = new ObservableCollection<Exercice>();
+
+            // No filter
+            if(userSearch == "")
+            {
+                foreach(APIExercice apiEx in exercices)
+                {
+                    FiltreGrille.Add((Exercice)apiEx);
+                }
+                
+            } else
+            {
+                // Applique le filtre
+                for (int i = 0; i < exercices.Count; i++)
+                {
+                    if (exercices[i].title.ToUpper().Contains(userSearch.ToUpper()) && userSearch != "")
+                    {
+                        FiltreGrille.Add(exercices[i]);
+                       
+                    }
+                }
+            }
+
+            return FiltreGrille;
+        }
+
+
+
+
+
+        private void Recherche_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            UpdateExercices(FilterExercices(Recherche.Text));
+            ListViewProducts.Items.Refresh();
+        }
+
+        private void LaToolbar_Loaded(object sender, RoutedEventArgs e)
+        {
+            // copié collé, sert a supprimer la fleche moche a droite de la toolbar
+
+            ToolBar toolBar = sender as ToolBar;
+            var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+            if (overflowGrid != null)
+            {
+                overflowGrid.Visibility = Visibility.Collapsed;
+            }
+
+            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            if (mainPanelBorder != null)
+            {
+                mainPanelBorder.Margin = new Thickness(0);
+            }
+
+        }
+        double pos = 0;
+        
+        private void SliderGauche_Click(object sender, RoutedEventArgs e)
+        {
+            if (pos > 0)
+            {
+                pos += -300;
+                scroll.ScrollToHorizontalOffset(pos);
+            }
+
+
+        }
+
+        private void sliderDroit_Click(object sender, RoutedEventArgs e)
+        {
+
+            // scroll.ScrollToLeftEnd();
+            if (scroll.ScrollableWidth > pos)
+            {
+                pos += scroll.ScrollableWidth/6;
+                scroll.ScrollToHorizontalOffset(pos);
+            }
+
+        }
+        public List<APIResource> Alim(List<Exercice> test)
+        {
+            
+            List<APIResource> t = new List<APIResource>();
+           
+            for(int i = 0; i < test.Count; i++)
+            {
+                for (int a = 0; a < test[i].resources.Count; a++)
+                {
+                   
+                    if (test[i].resources[a].type == "resource.thumbnail")
+                    {
+                        //MessageBox.Show("adad");
+                       
+                        t.Add(test[i].resources[a]);
+                       
+
+                    }
+                }
+                
+            }
+            
+            return t;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+          
+            
+        }
+
+        private void ListViewProducts_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            api.refreshToken();
+        }
+
+        public void Diapo()
+        {
+            System.Timers.Timer aTimer = new System.Timers.Timer(4000);
+            aTimer.Elapsed += ATimer_Elapsed;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+            Random r = new Random();
+
+           
+           
+        }
+
+        private void ATimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Random r = new Random();
+            
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Clear()));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[r.Next(0, exercices.Count)])));
+          //  Application.Current.Dispatcher.BeginInvoke(new Action(() =>  twoo.Text = currentExercices[0].title));
+           // Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices[0].title = twoo.Text));
+           
+            // currentExercices.Clear();
+            // currentExercices.Add(exercices[r.Next(0, exercices.Count)]);
+        }
+
+        private void twoo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           // unexo.Items.Refresh();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.ListBox L;
+            if(unexo.SelectedIndex !=-1)
+            {
+                Modal a = new Modal(this, unexo.SelectedItem);
+                a.ShowDialog();
+            }
+            else if(ListViewProducts.SelectedIndex != -1)
+            {
+                Modal a = new Modal(this, ListViewProducts.SelectedItem);
+                a.ShowDialog();
             }
             else
             {
-                nombreLigne = ListeExoBatt.Count / cols + 1;
+                MessageBox.Show("Rien n'est sélectionné");
             }
 
-            for (int r = 0; r < nombreLigne; r++)
-            {
-                TableRow tr = new TableRow();
-
-                for (int c = 0; c < cols; c++)
-                {
-
-                    //sortie de boucle par eviter une erreur d'index
-                    if (i >= ListeExoBatt.Count)
-                    {
-                        break;
-                    }
-                    Paragraph MonParagrapheTitre = new Paragraph();
-
-                    MonParagrapheTitre.Inlines.Add(new Bold(new Run("\n" + ListeExoBatt[i].title + "   " + "\n" + "Exercice de niveau " + ListeExoBatt[i].level.ToString() + "\n" + "\n"))
-                    {
-                        Foreground = Brushes.WhiteSmoke
-
-                    });
-
-                    MonParagrapheTitre.BorderBrush = Brushes.Gold;
-                    ThicknessConverter tc = new ThicknessConverter();
-                    MonParagrapheTitre.BorderThickness = (Thickness)tc.ConvertFromString("0,08in");
-                    MonParagrapheTitre.MouseEnter += MonParagrapheTitre_MouseEnter;
-                    MonParagrapheTitre.MouseLeave += MonParagrapheTitre_MouseLeave;
-                    tr.Cells.Add(new TableCell(MonParagrapheTitre));
-
-                    //Quand la souris entre dans la carte, les bordure deviennent noire
-                    void MonParagrapheTitre_MouseEnter(object sender, MouseEventArgs e)
-                    {
-                        ChangerContours(MonParagrapheTitre, Brushes.Black);
-                    }
-                    //Quand la souris sort, les bordures redeviennent jaunes
-                    void MonParagrapheTitre_MouseLeave(object sender, MouseEventArgs e)
-                    {
-                        ChangerContours(MonParagrapheTitre, Brushes.Gold);
-                    }
-                    i++;
-                }
-                TableRowGroup trg = new TableRowGroup();
-                trg.Rows.Add(tr);
-                myTable.RowGroups.Add(trg);
-            }
+            
+           
+           
+            
         }
-        public void ChangerContours(Paragraph paragraph, SolidColorBrush brush)
+
+       public void turborefresh()
         {
-            paragraph.BorderBrush = brush;
-            ThicknessConverter tuc = new ThicknessConverter();
-            paragraph.BorderThickness = (Thickness)tuc.ConvertFromString("0,08in");
+            ListViewProducts.Items.Refresh();
         }
     }
+
+    public class imgres
+    {
+        public string path { get; set; }
+    }
+    
+   
 }

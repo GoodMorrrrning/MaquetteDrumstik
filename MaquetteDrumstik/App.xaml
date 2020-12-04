@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:MaquetteDrumstik"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Couleurs/Colors.xaml"></ResourceDictionary>
+        
+        
     </Application.Resources>
 </Application>

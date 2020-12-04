@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is compatible with Silverlight-->
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Layer_1" Canvas.Left="0" Canvas.Top="0" Width="407.436" Height="407.436">
+  <Canvas.RenderTransform>
+    <TranslateTransform X="0" Y="0"/>
+  </Canvas.RenderTransform>
+  <Canvas.Resources/>
+  <!--Unknown tag: metadata-->
+  <!--Unknown tag: sodipodi:namedview-->
+  <Polygon xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="315.869,21.178 294.621,0 91.566,203.718 294.621,407.436 315.869,386.258 133.924,203.718 " Name="polygon49" FillRule="NonZero" Fill="#000000"/>
+  <Canvas Name="g51"/>
+  <Canvas Name="g53"/>
+  <Canvas Name="g55"/>
+  <Canvas Name="g57"/>
+  <Canvas Name="g59"/>
+  <Canvas Name="g61"/>
+  <Canvas Name="g63"/>
+  <Canvas Name="g65"/>
+  <Canvas Name="g67"/>
+  <Canvas Name="g69"/>
+  <Canvas Name="g71"/>
+  <Canvas Name="g73"/>
+  <Canvas Name="g75"/>
+  <Canvas Name="g77"/>
+  <Canvas Name="g79"/>
+</Canvas>

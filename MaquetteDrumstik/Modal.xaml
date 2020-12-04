@@ -1,0 +1,17 @@
+﻿<Window x:Class="MaquetteDrumstik.Modal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaquetteDrumstik"
+        mc:Ignorable="d"
+        Title="Modal" Height="250" Width="400">
+    <Grid>
+        <Button Content="Oui" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="121" RenderTransformOrigin="0.5,0.5" Height="25" Click="Button_Click_2">
+
+        </Button>
+        <Button Content="Modifier" HorizontalAlignment="Left" Margin="261,184,0,0" VerticalAlignment="Top" Width="121" Height="25" Click="Button_Click" />
+        <TextBox x:Name="LaTextbox" HorizontalAlignment="Left" Height="61" Margin="94,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="180"/>
+
+    </Grid>
+</Window>
