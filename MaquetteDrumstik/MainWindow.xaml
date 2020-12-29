@@ -184,5 +184,6 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <WebBrowser Name="test" Source="https://player/vimeo.com/video/439040534" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="518,509,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

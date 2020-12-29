@@ -51,8 +51,7 @@ namespace MaquetteDrumstik
                     // Open document 
                      filename = dlg.FileName;                           
                 Pathfile.Text = filename;
-                }
-            
+                }           
             
         }
         public LocalFile Foo

@@ -39,7 +39,9 @@ namespace MaquetteDrumstik
         //DataExo Datas = new DataExo();
       public ObservableCollection<Exercice> exercices { get; set; } = new ObservableCollection<Exercice>();
       public ObservableCollection<LocalFile> listefiles { get; set; } = new ObservableCollection<LocalFile>();
-       
+       public ObservableCollection<LocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<LocalFile>();
+        ObservableCollection<LocalFile> EveryListFiles { get; set; } = new ObservableCollection<LocalFile>();
+
         APIDrumstik api = new APIDrumstik();
         List<APIExercice> apiExercices = new List<APIExercice>();
 
@@ -56,7 +58,7 @@ namespace MaquetteDrumstik
             listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
-           
+          
             this.DataContext = this;
             apiExercices = api.GetExercices();
             Exercice e = new Exercice(apiExercices);
@@ -74,6 +76,9 @@ namespace MaquetteDrumstik
             }
             Diapo();
             UpdateExercices(exercices);
+            Cache ca = new Cache();
+           
+            open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
             
         }
         public async Task PrintExercicesAsync()
@@ -258,9 +263,10 @@ namespace MaquetteDrumstik
             
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Clear()));
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[r.Next(0, exercices.Count)])));
-          //  Application.Current.Dispatcher.BeginInvoke(new Action(() =>  twoo.Text = currentExercices[0].title));
-           // Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices[0].title = twoo.Text));
-           
+            //MessageBox.Show(exercices[0].videoUrl);
+            //  Application.Current.Dispatcher.BeginInvoke(new Action(() =>  twoo.Text = currentExercices[0].title));
+            // Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices[0].title = twoo.Text));
+
             // currentExercices.Clear();
             // currentExercices.Add(exercices[r.Next(0, exercices.Count)]);
         }
@@ -310,7 +316,17 @@ namespace MaquetteDrumstik
                     LocalFile foo = new LocalFile(local.Foo.url, local.Foo.title);
 
                 }
-                listefiles.Add(new LocalFile(local.Foo.url, local.Foo.title));
+                if(local.Foo.url !="" && local.Foo.title != "")
+                {
+                    Cache ca = new Cache();
+                   
+                     ca.CacheLoclafiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
+                    // listefiles.Add(new LocalFile(local.Foo.url, local.Foo.title));
+
+                  
+                    open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
+                }
+               
             }
         }
     }

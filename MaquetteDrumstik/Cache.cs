@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using MemoryCache = Microsoft.Extensions.Caching.Memory.MemoryCache;
 using Flurl;
 using Flurl.Http;
+using System.Collections.ObjectModel;
 
 namespace MaquetteDrumstik
 {
@@ -33,6 +34,8 @@ namespace MaquetteDrumstik
         MemoryCache memCache;
         string folder;
         string specificFolder;
+        string localfiledirectory;
+        string localpathfile;
 
         // List<ExoBatt> ExoBatts = new List<ExoBatt>();
         // MainWindow m = new MainWindow();
@@ -46,6 +49,9 @@ namespace MaquetteDrumstik
             // Combine the base folder with your specific folder....
             specificFolder = Path.Combine(folder, "drums");
             Directory.CreateDirectory(specificFolder);
+            Directory.CreateDirectory(Path.Combine(folder, "localfiles"));
+             localfiledirectory = Path.Combine(folder, "localfiles");
+             localpathfile = Path.Combine(localfiledirectory, "localfiles.json");
         }
 
         public List<APIResource> Alim(List<Exercice> test)
@@ -138,7 +144,64 @@ namespace MaquetteDrumstik
                    
         }
 
-        
+        public void CacheLoclafiles(ObservableCollection<LocalFile> SerialiseOneLocalFile, string url, string title)
+        {
+            string jisoooon;
+          
+            //LocalFileAddedByUser.Clear();
+            using (StreamReader red = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
+            {
+                jisoooon = red.ReadToEnd();
+                red.Close();
+            }
+            if(jisoooon != "")
+            {
+                SerialiseOneLocalFile = new ObservableCollection<LocalFile>();
+                SerialiseOneLocalFile = JsonConvert.DeserializeObject<ObservableCollection<LocalFile>>(jisoooon);
+            }
+            
+            SerialiseOneLocalFile.Add(new LocalFile(url, title));
+
+            string jison = JsonConvert.SerializeObject(SerialiseOneLocalFile.ToArray());
+
+            System.IO.File.WriteAllText(localfiledirectory+"\\files.json", jison);
+            
+        }
+
+        public ObservableCollection<LocalFile> RefreshLocalFiles(ObservableCollection<LocalFile> LocalFileAddedByUser, ObservableCollection<LocalFile> EveryLocalFiles, ObservableCollection<LocalFile> DefaultRequiredLocalFiles)
+        {
+            string jisoooon="";
+            LocalFileAddedByUser = new ObservableCollection<LocalFile>();
+            //LocalFileAddedByUser.Clear();
+            if (!File.Exists(localfiledirectory + "\\files.json"))
+            {
+                File.Create(Path.Combine(localfiledirectory, "files.json"));
+                
+            }
+            else
+            {
+                using (StreamReader r = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
+                {
+                    jisoooon = r.ReadToEnd();
+                    r.Close();
+                }
+            }
+           
+
+            LocalFileAddedByUser = JsonConvert.DeserializeObject<ObservableCollection<LocalFile>>(jisoooon);
+            EveryLocalFiles.Clear();
+            if(LocalFileAddedByUser != null)
+            {
+                foreach (var p in DefaultRequiredLocalFiles.Union(LocalFileAddedByUser))
+                    EveryLocalFiles.Add(p);
+            }
+            else
+            {
+                EveryLocalFiles = DefaultRequiredLocalFiles;
+            }
+           
+            return EveryLocalFiles;
+        }
         
     }
 }
