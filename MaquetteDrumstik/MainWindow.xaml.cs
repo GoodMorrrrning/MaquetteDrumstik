@@ -38,6 +38,7 @@ namespace MaquetteDrumstik
     {
         //DataExo Datas = new DataExo();
       public ObservableCollection<Exercice> exercices { get; set; } = new ObservableCollection<Exercice>();
+      public ObservableCollection<LocalFile> listefiles { get; set; } = new ObservableCollection<LocalFile>();
        
         APIDrumstik api = new APIDrumstik();
         List<APIExercice> apiExercices = new List<APIExercice>();
@@ -49,7 +50,10 @@ namespace MaquetteDrumstik
        
         public MainWindow()
         {
-          
+            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
+            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
+            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
+            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
            
@@ -61,31 +65,7 @@ namespace MaquetteDrumstik
 
              scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
-            Cache cache = new Cache();
-
-            foreach (APIExercice apiEx in apiExercices)
-            {
-                Exercice exercice = new Exercice(apiEx);
-
-                APIResource thumbnailRes = exercice.getThumbnailResource();
-                if (thumbnailRes != null)
-                {
-                    string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
-                    if (thumbnailLocalPath == null)
-                    {
-                        thumbnailLocalPath = cache.downloadThumbnailAsync(thumbnailRes).Result;
-
-                    }
-
-                    exercice.ThumbnailLocalPath = thumbnailLocalPath;
-                  
-                }
-                
-               
-                
-                exercices.Add(exercice);
-
-            }
+             _= PrintExercicesAsync();
             
             if (exercices.Count > 0)
             {
@@ -96,10 +76,40 @@ namespace MaquetteDrumstik
             UpdateExercices(exercices);
             
         }
+        public async Task PrintExercicesAsync()
+        {
+            await Task.Run(() => PrintExercices());
+        }
+        public void PrintExercices()
+        {
+            Cache cache = new Cache();
+            
+            foreach (APIExercice apiEx in apiExercices)
+            {
+                Exercice exercice = new Exercice(apiEx);
+
+                APIResource thumbnailRes = exercice.getThumbnailResource();
+                if (thumbnailRes != null)
+                {
+                    string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
+                    if (thumbnailLocalPath == null)
+                    {
+                        thumbnailLocalPath = cache.downloadThumbnailAsync(thumbnailRes);
+
+                    }
+
+                    exercice.ThumbnailLocalPath = thumbnailLocalPath;
+
+                }
+
+
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => this.exercices.Add(exercice)));
+                //exercices.Add(exercice);
+
+            }
+        }
+
       
-
-       
-
 
         public void UpdateExercices(ObservableCollection<Exercice> filteredExercices)
         {
@@ -232,7 +242,7 @@ namespace MaquetteDrumstik
 
         public void Diapo()
         {
-            System.Timers.Timer aTimer = new System.Timers.Timer(4000);
+            System.Timers.Timer aTimer = new System.Timers.Timer(5500);
             aTimer.Elapsed += ATimer_Elapsed;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
@@ -262,7 +272,7 @@ namespace MaquetteDrumstik
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.ListBox L;
+           
             if(unexo.SelectedIndex !=-1)
             {
                 Modal a = new Modal(this, unexo.SelectedItem);
@@ -287,6 +297,21 @@ namespace MaquetteDrumstik
        public void turborefresh()
         {
             ListViewProducts.Items.Refresh();
+        }
+
+        private void open_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+          
+           if(open.SelectedIndex == 0)
+            {
+                AddLocalFile local = new AddLocalFile();
+                if(local.ShowDialog() == true)
+                {
+                    LocalFile foo = new LocalFile(local.Foo.url, local.Foo.title);
+
+                }
+                listefiles.Add(new LocalFile(local.Foo.url, local.Foo.title));
+            }
         }
     }
 

@@ -1,0 +1,19 @@
+﻿<Window x:Class="MaquetteDrumstik.AddLocalFile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaquetteDrumstik"
+        mc:Ignorable="d"
+         Style="{StaticResource PrimaryBackgroundWin}"
+        Title="AddLocalFile" Height="324.447" Width="520.825">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" TextAlignment="Center" Foreground="{StaticResource Txt}" Margin="104,186,0,0" TextWrapping="Wrap" Text="Titre :" VerticalAlignment="Top" Height="31" Width="121"/>
+        <TextBox Name="resourceName" Background="{StaticResource Primary}" Foreground="{StaticResource Txt}" Height="31" Margin="243,186,126,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Button Background="{StaticResource TextualHighLight}" Content="Parcourir . . ." HorizontalAlignment="Left" Margin="243,126,0,0" VerticalAlignment="Top" Width="144" Click="Button_Click" Height="29"/>
+        <TextBlock Name="Pathfile" TextAlignment="Right" Foreground="{StaticResource Txt}" HorizontalAlignment="Left" Margin="10,132,0,0" TextWrapping="Wrap" Text="Fichier :" VerticalAlignment="Top" Width="215" Height="34"/>
+        <TextBlock Margin="104,54,104,0" TextAlignment="Center" Foreground="{StaticResource Txt}" TextWrapping="Wrap" Text="Ajouter un Fichier Local" VerticalAlignment="Top" Height="30" FontSize="14" FontWeight="Bold"/>
+        <Button Name="Valider" Background="{StaticResource TextualHighLight}" Content="Valider" Margin="219,246,219,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>

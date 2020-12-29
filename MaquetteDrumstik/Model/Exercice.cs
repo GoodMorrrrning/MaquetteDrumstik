@@ -45,39 +45,7 @@ namespace MaquetteDrumstik.Model
         }
 
     }
-    /*
-    public class I : INotifyPropertyChanged
-    {
-
-
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string ImageFullPath
-        {
-            get { return ThumbnailLocalPath; }
-            set
-            {
-                if (value != ThumbnailLocalPath)
-                {
-                    ThumbnailLocalPath = value;
-                    OnPropertyChanged("ThumbnailLocalPath");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-    }
-    */
+  
 }
 
 

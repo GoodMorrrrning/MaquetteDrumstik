@@ -106,77 +106,40 @@ namespace MaquetteDrumstik
         }
 
         // Demande de téléchargement d'une image
-        public async Task<string> downloadThumbnailAsync(APIResource thumbnail)
+        public string downloadThumbnailAsync(APIResource thumbnail)
         {
-            
             string thumbnailLocalPath = Path.Combine(specificFolder, thumbnail.name);
-            bool isok = true;
-            while (isok)
+           
+            WebClient client = new WebClient();
+            Uri ur = new Uri(thumbnail.url);
+            while (true)
             {
-
-
                 try
                 {
-
-
-                    Url url = new Url(thumbnail.url);
-                    var res = await url.DownloadFileAsync(specificFolder, thumbnail.name).ConfigureAwait(false);
-                    // res.AllowAnyHttpStatus();
-
-
-
-
-                    Task.Delay(700).Wait();
-                    isok = false;
-
-
-                  
-
+                    client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                    client.DownloadFileAsync(ur, thumbnailLocalPath);
+                    Task.Delay(2500).Wait();
+                    break;
                 }
-                catch (Flurl.Http.FlurlHttpException e)
+                catch (Exception e)
                 {
-                    MessageBox.Show(e.Message + thumbnail.id);
-
-                    
+                    MessageBox.Show(e.Message);
                 }
-               
             }
-            return thumbnailLocalPath;
+          
            
-        } 
-
-        public async void Cacheimg(List<Exercice> exo)
-        {
-            
-            //  ExoBatts = m.getexobatt();
-
-
-
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            // Combine the base folder with your specific folder....
-            string specificFolder = Path.Combine(folder, "drums");
-
-            //File.Create(specificFolder);
-            // CreateDirectory will check if folder exists and, if not, create it.
-            // If folder exists then CreateDirectory will do nothing.
-            Directory.CreateDirectory(specificFolder);
-
-            string appdataPath = Path.Combine(specificFolder, "JsonImages.json");
-            using (var httpClient = new HttpClient())
-            {
-                
-               
-                
-            
-
-
-
-
-       
-
-            }
+          
+            return  thumbnailLocalPath;
+           
         }
+
+        private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+                   
+        }
+
+        
+        
     }
 }
 

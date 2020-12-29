@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Style="{StaticResource PrimaryBackgroundWin}"
-        Title="MainWindow" Height="560" Width="1172">
+        Title="MainWindow" Height="700" Width="1172">
 
 
     <Grid RenderTransformOrigin="0.502,0.542">
@@ -40,7 +40,7 @@
                             <DataTemplate>
                                 <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
                                 <StackPanel>
-                                    <Border  Height="100" Width="130" CornerRadius="5" Margin="5">
+                                    <Border  Height="110" Width="140" CornerRadius="5" Margin="5">
                                         <Border.Effect>
                                             <DropShadowEffect ShadowDepth="1"/>
                                         </Border.Effect>
@@ -52,7 +52,7 @@
                                     <TextBlock x:Name="poggers" Foreground="{StaticResource Txt}" Margin="5" Text="{Binding title, StringFormat=\{0:C\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="27" FontFamily="Franklin Gothic Medium"/>
 
                                     <TextBlock Margin="5 0"  FontSize="15" Foreground="{StaticResource Txt}"><Run Text="Niveau de l'exercice : "/><Run Text=" "/><Run Text="{Binding level}"/></TextBlock>
-                                    <TextBox x:Name="twoo" Text="{Binding ElementName=poggers, Mode=TwoWay, Path=Text, UpdateSourceTrigger=PropertyChanged}" Background="{StaticResource Primary}" Foreground="{StaticResource Txt}" IsReadOnly="False"  HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="134"  BorderBrush="White" Height="150" MinWidth="100" MinHeight="97" TextChanged="twoo_TextChanged"/>
+                                    <!--  <TextBox x:Name="twoo" Text="{Binding ElementName=poggers, Mode=TwoWay, Path=Text, UpdateSourceTrigger=PropertyChanged}" Background="{StaticResource Primary}" Foreground="{StaticResource Txt}" IsReadOnly="False"  HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="134"  BorderBrush="White" Height="150" MinWidth="100" MinHeight="97" TextChanged="twoo_TextChanged"/> -->
                                 </StackPanel>
                                 <!-- </Border> -->
                             </DataTemplate>
@@ -91,6 +91,10 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ListBox>
+
+
+
+
                     <ItemsControl x:Name="lesimages">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -111,6 +115,8 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+
+
 
         <TextBox Template="{StaticResource TextBoxBaseControlTemplate}" Name="Recherche" Grid.Column="1" Height="23" Margin="0,13,114,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="Recherche_TextChanged_1" Tag ="Rechercher un Exercice..." HorizontalAlignment="Right"/>
         <ToolBar x:Name="LaToolbar" Background="{StaticResource Secondary}" Grid.Column="1" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="650" Loaded="LaToolbar_Loaded" Margin="10,-5,0,0">
@@ -137,11 +143,46 @@
             <Image Source="Asset/chright-w.png"></Image>
         </Button>
 
-        <Button Grid.ColumnSpan="2" Content="RefreshToken" HorizontalAlignment="Left" Margin="1050,426,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button Grid.ColumnSpan="2" Content="Modifier" HorizontalAlignment="Left" Margin="10,440,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Height="29" Click="Button_Click_2"/>
+        <Button Grid.ColumnSpan="2" Content="RefreshToken" HorizontalAlignment="Left" Margin="1079,589,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="Button_Click_1"/>
+        <Button Grid.ColumnSpan="2" Content="Modifier" HorizontalAlignment="Left" Margin="10,580,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="110" Height="29" Click="Button_Click_2"/>
+        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,249,0,0" Grid.Row="1" Foreground="{StaticResource Txt}" TextWrapping="Wrap" Text="My Files" VerticalAlignment="Top" Height="31" Width="110" FontSize="20" TextAlignment="Center"/>
 
+        <ScrollViewer x:Name="MyfilesObservable" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" Margin="0,300,0,0" VerticalAlignment="Top">
 
+            <StackPanel Orientation="Horizontal">
+                <!-- <TextBlock Text="Contenu en Ligne" Foreground="{StaticResource Txt}" Margin="10" FontSize="22" FontWeight="Medium"/> -->
+                <StackPanel Margin="20 0" Orientation="Horizontal">
 
+                    <ListBox x:Name="open" MouseDoubleClick="open_MouseDoubleClick" Background="{StaticResource Primary}" ItemsSource="{Binding Path=listefiles}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
+                                <StackPanel>
+                                    <Border  Height="230" Width="350"  CornerRadius="5" Margin="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="1"/>
+                                        </Border.Effect>
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding url}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Foreground="{StaticResource Txt}" Margin="5" Text="{Binding title}" FontSize="17" FontFamily="Franklin Gothic Medium"/>
 
+                                    
+
+                                </StackPanel>
+                                <!-- </Border> -->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

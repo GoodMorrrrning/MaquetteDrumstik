@@ -78,3 +78,5 @@ C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\bin
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\bin\Debug\Aspose.Cells.xml
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\Modal.g.cs
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\Modal.baml
+C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\AddLocalFile.g.cs
+C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\AddLocalFile.baml

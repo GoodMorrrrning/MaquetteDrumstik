@@ -121,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AddLocalFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Couleurs\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +133,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AddLocalFile.xaml.cs">
+      <DependentUpon>AddLocalFile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="API\APIExercice.cs" />
     <Compile Include="API\APIResource.cs" />
     <Compile Include="API\APIToken.cs" />
@@ -156,6 +163,7 @@
       <DependentUpon>Modal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Exercice.cs" />
+    <Compile Include="Model\LocalFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
