@@ -157,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PrintVideo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modal.xaml.cs">
@@ -164,6 +168,11 @@
     </Compile>
     <Compile Include="Model\Exercice.cs" />
     <Compile Include="Model\LocalFile.cs" />
+    <Compile Include="Model\RS_DeserializeClass.cs" />
+    <Compile Include="Model\RS_VimeoExtractor.cs" />
+    <Compile Include="PrintVideo.xaml.cs">
+      <DependentUpon>PrintVideo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

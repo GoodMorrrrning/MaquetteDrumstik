@@ -64,7 +64,7 @@
                         </ItemsControl.ItemsPanel>
                     </ListBox>
 
-                    <ListBox x:Name="ListViewProducts" Background="{StaticResource Primary}" ItemsSource="{Binding Path=exercices}" Loaded="ListViewProducts_Loaded">
+                    <ListBox x:Name="ListViewProducts" Background="{StaticResource Primary}" ItemsSource="{Binding Path=exercices}" Loaded="ListViewProducts_Loaded" MouseDoubleClick="ListViewProducts_MouseDoubleClick">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
@@ -168,7 +168,7 @@
                                     </Border>
                                     <TextBlock Foreground="{StaticResource Txt}" Margin="5" Text="{Binding title}" FontSize="17" FontFamily="Franklin Gothic Medium"/>
 
-                                    
+
 
                                 </StackPanel>
                                 <!-- </Border> -->
@@ -184,6 +184,6 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <WebBrowser Name="test" Source="https://player/vimeo.com/video/439040534" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="518,509,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        <Grid/>
     </Grid>
 </Window>

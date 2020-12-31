@@ -81,6 +81,7 @@ namespace MaquetteDrumstik
             open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
             
         }
+        
         public async Task PrintExercicesAsync()
         {
             await Task.Run(() => PrintExercices());
@@ -263,6 +264,8 @@ namespace MaquetteDrumstik
             
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Clear()));
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[r.Next(0, exercices.Count)])));
+            string a = exercices[0].videoUrl;
+           
             //MessageBox.Show(exercices[0].videoUrl);
             //  Application.Current.Dispatcher.BeginInvoke(new Action(() =>  twoo.Text = currentExercices[0].title));
             // Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices[0].title = twoo.Text));
@@ -329,12 +332,22 @@ namespace MaquetteDrumstik
                
             }
         }
+
+        private void ListViewProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int indexliste = ListViewProducts.SelectedIndex;
+            string downloadurl = exercices[indexliste].videoUrl;
+            RS_VimeoExtractor tchous = new RS_VimeoExtractor();
+            List<Model.Progressive> ListOfUrls = new List<Progressive>();
+            ListOfUrls = tchous.Deserialise(tchous.DownLoad(downloadurl));
+
+            PrintVideo printVideo = new PrintVideo(ListOfUrls);
+            printVideo.ShowDialog();
+
+        }
     }
 
-    public class imgres
-    {
-        public string path { get; set; }
-    }
+   
     
    
 }

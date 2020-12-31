@@ -80,3 +80,5 @@ C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\Modal.baml
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\AddLocalFile.g.cs
 C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\AddLocalFile.baml
+C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\PrintVideo.g.cs
+C:\Users\marti\source\repos\GoodMorrrrning\MaquetteDrumstik\MaquetteDrumstik\obj\Debug\PrintVideo.baml

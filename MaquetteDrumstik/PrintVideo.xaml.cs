@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace MaquetteDrumstik
+{
+    /// <summary>
+    /// Logique d'interaction pour PrintVideo.xaml
+    /// </summary>
+    public partial class PrintVideo : Window
+    {
+        List<Model.Progressive> generalscope = new List<Model.Progressive>();
+        string NEWmp4Url = "";
+        public PrintVideo(List<Model.Progressive> urlssMP4)
+        {
+            generalscope = urlssMP4;
+            InitializeComponent();
+            
+            //HAHAHA XD
+            List<string> test = new List<string>();
+            test.Add("MAx");
+            test.Add("Moyen");
+            test.Add("Dégeulasse");
+            comboquality.ItemsSource = test;
+           
+
+           
+            videoExo.Source = new Uri(urlssMP4[4].url.Remove(4,1));
+            videoExo.Play();
+        }
+
+       
+
+        private void comboquality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            videoExo.Stop();
+
+            if (comboquality.SelectedIndex == 0)
+            {
+                NEWmp4Url = generalscope[4].url.Remove(4, 1);
+                videoExo.Source = new Uri(NEWmp4Url);
+                videoExo.Play();
+            }
+            if (comboquality.SelectedIndex == 1)
+            {
+                NEWmp4Url = generalscope[2].url.Remove(4, 1);
+                videoExo.Source = new Uri(NEWmp4Url);
+                videoExo.Play();
+            }
+            if (comboquality.SelectedIndex == 2)
+            {               
+                NEWmp4Url = generalscope[0].url.Remove(4, 1);
+                videoExo.Source = new Uri(NEWmp4Url);
+                videoExo.Play();
+            }
+
+        }
+
+       
+    }
+}
