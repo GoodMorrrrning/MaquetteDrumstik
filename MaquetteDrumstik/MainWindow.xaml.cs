@@ -34,6 +34,10 @@ namespace MaquetteDrumstik
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
     /// 
+
+    //==========================================
+    //GITHUB TEST BRANCH
+    //=========================================
     public partial class MainWindow : Window
     {
         //DataExo Datas = new DataExo();
