@@ -335,6 +335,7 @@ namespace MaquetteDrumstik
 
         private void ListViewProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+           
             int indexliste = ListViewProducts.SelectedIndex;
             string downloadurl = exercices[indexliste].videoUrl;
             RS_VimeoExtractor tchous = new RS_VimeoExtractor();
@@ -344,6 +345,12 @@ namespace MaquetteDrumstik
             PrintVideo printVideo = new PrintVideo(ListOfUrls);
             printVideo.ShowDialog();
 
+        }
+
+        private void unexo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ObservableCollection<Exercice> oneExercice = new ObservableCollection<Exercice>(); oneExercice = (ObservableCollection<Exercice>)unexo.ItemsSource;
+            MessageBox.Show(oneExercice[0].videoUrl);
         }
     }
 

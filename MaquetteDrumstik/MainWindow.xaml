@@ -35,7 +35,7 @@
             <StackPanel Orientation="Horizontal">
                 <!-- <TextBlock Text="Contenu en Ligne" Foreground="{StaticResource Txt}" Margin="10" FontSize="22" FontWeight="Medium"/> -->
                 <StackPanel Margin="20 0" Orientation="Horizontal">
-                    <ListBox x:Name="unexo" ItemsSource="{Binding Path=currentExercices}" Background="{StaticResource Primary}">
+                    <ListBox x:Name="unexo" MouseDoubleClick="unexo_MouseDoubleClick" ItemsSource="{Binding Path=currentExercices}" Background="{StaticResource Primary}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
