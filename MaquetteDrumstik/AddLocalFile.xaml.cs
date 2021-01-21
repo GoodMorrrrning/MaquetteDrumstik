@@ -15,9 +15,14 @@ using System.Windows.Shapes;
 
 namespace MaquetteDrumstik
 {
-    /// <summary>
-    /// Logique d'interaction pour AddLocalFile.xaml
-    /// </summary>
+    //
+    // monfichier.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
+   
     public partial class AddLocalFile : Window
     {
         string filename = "";
@@ -54,9 +59,9 @@ namespace MaquetteDrumstik
                 }           
             
         }
-        public LocalFile Foo
+        public RSLocalFile Foo
         {
-            get { return new LocalFile(filename, resourceName.Text); }
+            get { return new RSLocalFile(filename, resourceName.Text); }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

@@ -8,9 +8,13 @@ using System.Windows;
 
 namespace MaquetteDrumstik
 {
-    /// <summary>
-    /// Logique d'interaction pour App.xaml
-    /// </summary>
+    //
+    // App.xaml.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
     public partial class App : Application
     {
     }

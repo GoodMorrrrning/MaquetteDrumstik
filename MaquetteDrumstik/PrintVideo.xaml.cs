@@ -14,16 +14,20 @@ using System.Windows.Shapes;
 
 namespace MaquetteDrumstik
 {
-    /// <summary>
-    /// Logique d'interaction pour PrintVideo.xaml
-    /// </summary>
+    //
+    // PrintVideo.xaml.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
     public partial class PrintVideo : Window
     {
         List<Model.Progressive> generalscope = new List<Model.Progressive>();
         string NEWmp4Url = "";
-        public PrintVideo(List<Model.Progressive> urlssMP4)
+        public PrintVideo(List<Model.Progressive> urlsMp4)
         {
-            generalscope = urlssMP4;
+            generalscope = urlsMp4;
             InitializeComponent();
             
             //HAHAHA XD
@@ -33,9 +37,7 @@ namespace MaquetteDrumstik
             test.Add("Dégeulasse");
             comboquality.ItemsSource = test;
            
-
-           
-            videoExo.Source = new Uri(urlssMP4[4].url.Remove(4,1));
+            videoExo.Source = new Uri(urlsMp4[4].url.Remove(4,1));
             videoExo.Play();
         }
 

@@ -30,44 +30,47 @@ using Aspose.Cells.Drawing;
 
 namespace MaquetteDrumstik
 {
-    /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
-    /// </summary>
-    /// 
+    //
+    // MainWindow.xaml.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
     public partial class MainWindow : Window
     {
-        //DataExo Datas = new DataExo();
-      public ObservableCollection<Exercice> exercices { get; set; } = new ObservableCollection<Exercice>();
-      public ObservableCollection<LocalFile> listefiles { get; set; } = new ObservableCollection<LocalFile>();
-       public ObservableCollection<LocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<LocalFile>();
-        ObservableCollection<LocalFile> EveryListFiles { get; set; } = new ObservableCollection<LocalFile>();
+      
+      public ObservableCollection<RSExercice> exercices { get; set; } = new ObservableCollection<RSExercice>();
+      public ObservableCollection<RSLocalFile> listefiles { get; set; } = new ObservableCollection<RSLocalFile>();
+       public ObservableCollection<RSLocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<RSLocalFile>();
+        ObservableCollection<RSLocalFile> EveryListFiles { get; set; } = new ObservableCollection<RSLocalFile>();
 
-        APIDrumstik api = new APIDrumstik();
-        List<APIExercice> apiExercices = new List<APIExercice>();
+        RSApiDrumstik api = new RSApiDrumstik();
+        List<RSApiExercice> apiExercices;
 
         
-        public ObservableCollection<Exercice> currentExercices { get; set; }
-    = new ObservableCollection<Exercice>();
+        public ObservableCollection<RSExercice> currentExercices { get; set; }
+    = new ObservableCollection<RSExercice>();
 
        
         public MainWindow()
         {
-            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
-            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
-            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
-            listefiles.Add(new LocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
+            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
+            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
+            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
+            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
           
             this.DataContext = this;
-            apiExercices = api.GetExercices();
-            Exercice e = new Exercice(apiExercices);
+            apiExercices = api.getExercices();
+           
             this.MinWidth = 930;
             this.MinHeight = 450;
 
              scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
-             _= PrintExercicesAsync();
+             _= printExercicesAsync();
             
             if (exercices.Count > 0)
             {
@@ -76,25 +79,25 @@ namespace MaquetteDrumstik
             }
             Diapo();
             UpdateExercices(exercices);
-            Cache ca = new Cache();
+            RSCache ca = new RSCache();
            
             open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
             
         }
         
-        public async Task PrintExercicesAsync()
+        public async Task printExercicesAsync()
         {
-            await Task.Run(() => PrintExercices());
+            await Task.Run(() => printExercices());
         }
-        public void PrintExercices()
+        public void printExercices()
         {
-            Cache cache = new Cache();
+            RSCache cache = new RSCache();
             
-            foreach (APIExercice apiEx in apiExercices)
+            foreach (RSApiExercice apiEx in apiExercices)
             {
-                Exercice exercice = new Exercice(apiEx);
+                RSExercice exercice = new RSExercice(apiEx);
 
-                APIResource thumbnailRes = exercice.getThumbnailResource();
+                RSApiResource thumbnailRes = exercice.getThumbnailResource();
                 if (thumbnailRes != null)
                 {
                     string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
@@ -110,31 +113,31 @@ namespace MaquetteDrumstik
 
 
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => this.exercices.Add(exercice)));
-                //exercices.Add(exercice);
+               
 
             }
         }
 
       
 
-        public void UpdateExercices(ObservableCollection<Exercice> filteredExercices)
+        public void UpdateExercices(ObservableCollection<RSExercice> filteredExercices)
         {
             
             ListViewProducts.ItemsSource = filteredExercices;
-           // ListViewProducts.Items.Refresh();
+          
         }
 
 
-        public ObservableCollection<Exercice> FilterExercices(string userSearch)
+        public ObservableCollection<RSExercice> FilterExercices(string userSearch)
         {
-            ObservableCollection<Exercice> FiltreGrille = new ObservableCollection<Exercice>();
+            ObservableCollection<RSExercice> FiltreGrille = new ObservableCollection<RSExercice>();
 
             // No filter
             if(userSearch == "")
             {
-                foreach(APIExercice apiEx in exercices)
+                foreach(RSApiExercice apiEx in exercices)
                 {
-                    FiltreGrille.Add((Exercice)apiEx);
+                    FiltreGrille.Add((RSExercice)apiEx);
                 }
                 
             } else
@@ -197,7 +200,7 @@ namespace MaquetteDrumstik
         private void sliderDroit_Click(object sender, RoutedEventArgs e)
         {
 
-            // scroll.ScrollToLeftEnd();
+           
             if (scroll.ScrollableWidth > pos)
             {
                 pos += scroll.ScrollableWidth/6;
@@ -205,10 +208,10 @@ namespace MaquetteDrumstik
             }
 
         }
-        public List<APIResource> Alim(List<Exercice> test)
+        public List<RSApiResource> getListOfResource(List<RSExercice> test)
         {
             
-            List<APIResource> t = new List<APIResource>();
+            List<RSApiResource> t = new List<RSApiResource>();
            
             for(int i = 0; i < test.Count; i++)
             {
@@ -217,7 +220,7 @@ namespace MaquetteDrumstik
                    
                     if (test[i].resources[a].type == "resource.thumbnail")
                     {
-                        //MessageBox.Show("adad");
+                        
                        
                         t.Add(test[i].resources[a]);
                        
@@ -230,16 +233,7 @@ namespace MaquetteDrumstik
             return t;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-          
-            
-        }
-
-        private void ListViewProducts_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+       
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -252,7 +246,7 @@ namespace MaquetteDrumstik
             aTimer.Elapsed += ATimer_Elapsed;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
-            Random r = new Random();
+         
 
            
            
@@ -264,19 +258,14 @@ namespace MaquetteDrumstik
             
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Clear()));
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[r.Next(0, exercices.Count)])));
-            string a = exercices[0].videoUrl;
+          
            
-            //MessageBox.Show(exercices[0].videoUrl);
-            //  Application.Current.Dispatcher.BeginInvoke(new Action(() =>  twoo.Text = currentExercices[0].title));
-            // Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices[0].title = twoo.Text));
-
-            // currentExercices.Clear();
-            // currentExercices.Add(exercices[r.Next(0, exercices.Count)]);
+            
         }
 
         private void twoo_TextChanged(object sender, TextChangedEventArgs e)
         {
-           // unexo.Items.Refresh();
+            throw new NotSupportedException();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -316,15 +305,15 @@ namespace MaquetteDrumstik
                 AddLocalFile local = new AddLocalFile();
                 if(local.ShowDialog() == true)
                 {
-                    LocalFile foo = new LocalFile(local.Foo.url, local.Foo.title);
+                    _ = new RSLocalFile(local.Foo.url, local.Foo.title);
 
                 }
                 if(local.Foo.url !="" && local.Foo.title != "")
                 {
-                    Cache ca = new Cache();
+                    RSCache ca = new RSCache();
                    
-                     ca.CacheLoclafiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
-                    // listefiles.Add(new LocalFile(local.Foo.url, local.Foo.title));
+                     ca.cacheLocalFiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
+                    
 
                   
                     open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
@@ -338,7 +327,7 @@ namespace MaquetteDrumstik
            
             int indexliste = ListViewProducts.SelectedIndex;
             string downloadurl = exercices[indexliste].videoUrl;
-            RS_VimeoExtractor tchous = new RS_VimeoExtractor();
+            RSVimeoExtractor tchous = new RSVimeoExtractor();
             List<Model.Progressive> ListOfUrls = new List<Progressive>();
             ListOfUrls = tchous.Deserialise(tchous.DownLoad(downloadurl));
 
@@ -349,7 +338,7 @@ namespace MaquetteDrumstik
 
         private void unexo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ObservableCollection<Exercice> oneExercice = new ObservableCollection<Exercice>(); oneExercice = (ObservableCollection<Exercice>)unexo.ItemsSource;
+            ObservableCollection<RSExercice> oneExercice = new ObservableCollection<RSExercice>(); oneExercice = (ObservableCollection<RSExercice>)unexo.ItemsSource;
             MessageBox.Show(oneExercice[0].videoUrl);
         }
     }

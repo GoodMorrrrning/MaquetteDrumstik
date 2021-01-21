@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MaquetteDrumstik.API
 {
-    public class APIResource
+    //
+    // RSApiResource.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
+    public class RSApiResource
     {
         public int id { get; set; }
         public string name { get; set; }

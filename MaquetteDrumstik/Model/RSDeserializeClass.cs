@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace MaquetteDrumstik.Model
 {
+    //
+    // RSDeserializeClass.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
     public class Stream
     {
         public int profile { get; set; }
@@ -356,7 +363,7 @@ namespace MaquetteDrumstik.Model
         public int autoplay { get; set; }
     }
 
-    public class RS_DeserializeClass
+    public class RSDeserializeClass
     {
         public string cdn_url { get; set; }
         public string vimeo_api_url { get; set; }

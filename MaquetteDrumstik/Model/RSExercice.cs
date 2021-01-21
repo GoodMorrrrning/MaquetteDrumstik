@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace MaquetteDrumstik.Model
 {
-    public class Exercice : APIExercice
+    //
+    // RSExercice.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
+    public class RSExercice : RSApiExercice
     {
-        private List<APIExercice> apiExercices;
+        readonly private List<RSApiExercice> _apiExercices;
 
-        public Exercice(APIExercice data)
+        public RSExercice(RSApiExercice data)
         {
             this.id = data.id;
             this.uuid = data.uuid;
@@ -32,15 +39,15 @@ namespace MaquetteDrumstik.Model
             this.resources = data.resources;
         }
 
-        public Exercice(List<APIExercice> apiExercices)
+        public RSExercice(List<RSApiExercice> apiExercices)
         {
-            this.apiExercices = apiExercices;
+            this._apiExercices = apiExercices;
         }
 
         public string ThumbnailLocalPath
         {
 
-            // get { return @"C:\Users\marti\AppData\Roaming\drums\bg_2.jpg"; }
+           
             get; set;
         }
 

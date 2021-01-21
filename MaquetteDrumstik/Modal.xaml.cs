@@ -15,23 +15,27 @@ using System.Windows.Shapes;
 
 namespace MaquetteDrumstik
 {
-    /// <summary>
-    /// Logique d'interaction pour Modal.xaml
-    /// </summary>
+    //
+    // Modal.xaml.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
     public partial class Modal : Window
     {
         public bool UtilisateurVeutIlQuitter;
         MainWindow a;
         
-        Exercice unexo;
+        RSExercice unExo;
         public Modal(MainWindow ab, object haha)
         {
             
             
-                unexo = (Exercice)haha; 
+                unExo = (RSExercice)haha; 
             a = ab;
             InitializeComponent();
-            LaTextbox.Text = unexo.title;
+            LaTextbox.Text = unExo.title;
           
         }
         
@@ -48,7 +52,7 @@ namespace MaquetteDrumstik
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            unexo.title = LaTextbox.Text;
+            unExo.title = LaTextbox.Text;
             a.turborefresh();
             this.Close();
         }

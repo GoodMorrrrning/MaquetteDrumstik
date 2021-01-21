@@ -136,15 +136,15 @@
     <Compile Include="AddLocalFile.xaml.cs">
       <DependentUpon>AddLocalFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="API\APIExercice.cs" />
-    <Compile Include="API\APIResource.cs" />
-    <Compile Include="API\APIToken.cs" />
+    <Compile Include="API\RSApiExercice.cs" />
+    <Compile Include="API\RSApiResource.cs" />
+    <Compile Include="API\RSApiToken.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Cache.cs" />
-    <Compile Include="API\APIDrumstik.cs" />
+    <Compile Include="RSCache.cs" />
+    <Compile Include="API\RSApiDrumstik.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -166,10 +166,10 @@
     <Compile Include="Modal.xaml.cs">
       <DependentUpon>Modal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Exercice.cs" />
-    <Compile Include="Model\LocalFile.cs" />
-    <Compile Include="Model\RS_DeserializeClass.cs" />
-    <Compile Include="Model\RS_VimeoExtractor.cs" />
+    <Compile Include="Model\RSExercice.cs" />
+    <Compile Include="Model\RSLocalFile.cs" />
+    <Compile Include="Model\RSDeserializeClass.cs" />
+    <Compile Include="Model\RSVimeoExtractor.cs" />
     <Compile Include="PrintVideo.xaml.cs">
       <DependentUpon>PrintVideo.xaml</DependentUpon>
     </Compile>
@@ -190,6 +190,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -207,7 +210,12 @@
     <Resource Include="Asset\chright-w.png" />
     <Content Include="Asset\metro.svg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.17.0.26580\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.17.0.26580\analyzers\SonarAnalyzer.CFG.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.17.0.26580\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.17.0.26580\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

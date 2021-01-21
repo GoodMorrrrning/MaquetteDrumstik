@@ -3,7 +3,13 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
-
+//
+// monfichier.cs
+// Drumstik
+//
+// Created by martin on 22/10/2020.
+// Copyright (c) 2021 Rimsoft. All rights reserved.
+//
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Pour modifier les informations
 // associées à un assembly.

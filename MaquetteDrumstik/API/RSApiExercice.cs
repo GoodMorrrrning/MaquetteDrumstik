@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MaquetteDrumstik.API
 {
-    public class APIExercice
+    //
+    // RSApiExercice.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
+    public class RSApiExercice
     {
         public int id { get; set; }
         public string uuid { get; set; }
@@ -23,13 +30,13 @@ namespace MaquetteDrumstik.API
         public string title_fr { get; set; }
         public string resume_fr { get; set; }
         public string description_fr { get; set; }
-        public IList<APIResource> resources { get; set; }
+        public IList<RSApiResource> resources { get; set; }
 
         #region Helpers methods
 
-        public APIResource getThumbnailResource()
+        public RSApiResource getThumbnailResource()
         {
-            foreach(APIResource resource in resources)
+            foreach(RSApiResource resource in resources)
             {
                 if(resource.type == "resource.thumbnail")
                 {

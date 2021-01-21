@@ -14,10 +14,17 @@ using System.Timers;
 
 namespace MaquetteDrumstik.API
 {
-    class APIDrumstik
+    //
+    // RSApiDrumstik.cs
+    // Drumstik
+    //
+    // Created by martin on 22/10/2020.
+    // Copyright (c) 2021 Rimsoft. All rights reserved.
+    //
+    class RSApiDrumstik
     {
         //privé car on ne doit pas l'utiliser
-        private string GetToken()
+        private string getToken()
         {
 
             using (var httpClient = new HttpClient())
@@ -33,12 +40,11 @@ namespace MaquetteDrumstik.API
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
 
                     ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
-
                 
                     var response = httpClient.SendAsync(request);
 
                     //Deserialise
-                    APIToken test = JsonConvert.DeserializeObject<APIToken>(response.Result.Content.ReadAsStringAsync().Result);
+                    RSApiToken test = JsonConvert.DeserializeObject<RSApiToken>(response.Result.Content.ReadAsStringAsync().Result);
 
                     return test.AccesToken;
                 }
@@ -47,14 +53,14 @@ namespace MaquetteDrumstik.API
        
         public void refreshToken()
         {
-            Properties.Settings.Default.token = GetToken();
+            Properties.Settings.Default.token = getToken();
             Properties.Settings.Default.Save();
         }
-        public List<APIExercice> GetExercices()
+        public List<RSApiExercice> getExercices()
         {
-           //Properties.Settings.Default.token = GetToken();
-          // Properties.Settings.Default.Save();
-           //request + token
+         
+        
+         
            var myUri = new Uri("https://api.drumstik.app/api/exercice");
             var myWebRequest = WebRequest.Create(myUri);
             var myHttpWebRequest = (HttpWebRequest)myWebRequest;
@@ -69,7 +75,7 @@ namespace MaquetteDrumstik.API
             var json = myStreamReader.ReadToEnd();
 
             //deserialise
-            List<APIExercice> ExoBatterie = JsonConvert.DeserializeObject<List<APIExercice>>(json);
+            List<RSApiExercice> ExoBatterie = JsonConvert.DeserializeObject<List<RSApiExercice>>(json);
 
             responseStream.Close();
             myWebResponse.Close();
