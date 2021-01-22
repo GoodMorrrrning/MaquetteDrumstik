@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MaquetteDrumstik.Model
 {
     //
-    // RSDeserializeClass.cs
+    // RSdeserializeClass.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
@@ -363,7 +363,7 @@ namespace MaquetteDrumstik.Model
         public int autoplay { get; set; }
     }
 
-    public class RSDeserializeClass
+    public class RSdeserializeClass
     {
         public string cdn_url { get; set; }
         public string vimeo_api_url { get; set; }

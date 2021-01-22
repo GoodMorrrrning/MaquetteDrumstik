@@ -136,15 +136,15 @@
     <Compile Include="AddLocalFile.xaml.cs">
       <DependentUpon>AddLocalFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="API\RSApiExercice.cs" />
-    <Compile Include="API\RSApiResource.cs" />
-    <Compile Include="API\RSApiToken.cs" />
+    <Compile Include="API\RSapiExercice.cs" />
+    <Compile Include="API\RSapiResource.cs" />
+    <Compile Include="API\RSapiToken.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RSCache.cs" />
-    <Compile Include="API\RSApiDrumstik.cs" />
+    <Compile Include="RScache.cs" />
+    <Compile Include="API\RSapiDrumstik.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -166,10 +166,10 @@
     <Compile Include="Modal.xaml.cs">
       <DependentUpon>Modal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\RSExercice.cs" />
-    <Compile Include="Model\RSLocalFile.cs" />
-    <Compile Include="Model\RSDeserializeClass.cs" />
-    <Compile Include="Model\RSVimeoExtractor.cs" />
+    <Compile Include="Model\RSexercice.cs" />
+    <Compile Include="Model\RSlocalFile.cs" />
+    <Compile Include="Model\RSdeserializeClass.cs" />
+    <Compile Include="Model\RSvimeoExtractor.cs" />
     <Compile Include="PrintVideo.xaml.cs">
       <DependentUpon>PrintVideo.xaml</DependentUpon>
     </Compile>

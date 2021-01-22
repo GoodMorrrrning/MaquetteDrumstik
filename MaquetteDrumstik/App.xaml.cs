@@ -17,5 +17,6 @@ namespace MaquetteDrumstik
     //
     public partial class App : Application
     {
+        
     }
 }

@@ -37,41 +37,36 @@ namespace MaquetteDrumstik
         {
            
                 // Create OpenFileDialog 
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                Microsoft.Win32.OpenFileDialog chooseLocalFile = new Microsoft.Win32.OpenFileDialog();
 
 
 
                 // Set filter for file extension and default file extension 
-                dlg.DefaultExt = ".png";
-                dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+                chooseLocalFile.DefaultExt = ".png";
+                chooseLocalFile.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
 
 
                 // Display OpenFileDialog by calling ShowDialog method 
-                Nullable<bool> result = dlg.ShowDialog();
+                Nullable<bool> result = chooseLocalFile.ShowDialog();
 
 
                 // Get the selected file name and display in a TextBox 
-                if (result == true)
-                {
+                if (result == true) {
                     // Open document 
-                     filename = dlg.FileName;                           
+                     filename = chooseLocalFile.FileName;                           
                 Pathfile.Text = filename;
                 }           
-            
         }
-        public RSLocalFile Foo
+        public RSlocalFile Foo
         {
-            get { return new RSLocalFile(filename, resourceName.Text); }
+            get { return new RSlocalFile(filename, resourceName.Text); }
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (filename == "" || resourceName.Text == "")
-            {
+            if (filename == "" || resourceName.Text == "") {
                 MessageBox.Show("Vous n'avez pas choisi de fichier ou le titre est vide");
             }
-            else
-            {
+            else {
                 this.Close();
             }
         }

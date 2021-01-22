@@ -64,7 +64,7 @@
                         </ItemsControl.ItemsPanel>
                     </ListBox>
 
-                    <ListBox x:Name="ListViewProducts" Background="{StaticResource Primary}" ItemsSource="{Binding Path=exercices}"  MouseDoubleClick="ListViewProducts_MouseDoubleClick">
+                    <ListBox x:Name="LVexercices" Background="{StaticResource Primary}" ItemsSource="{Binding Path=exercices}"  MouseDoubleClick="ListViewProducts_MouseDoubleClick">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- <Border Margin="10" Height="160" BorderBrush="DodgerBlue" BorderThickness="1"> -->
