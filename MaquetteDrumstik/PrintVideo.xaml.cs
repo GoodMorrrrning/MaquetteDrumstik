@@ -32,16 +32,14 @@ namespace MaquetteDrumstik
             
         
             List<string> test = new List<string>();
-            test.Add("MAx");
-            test.Add("Moyen");
-            test.Add("Dégeulasse");
+            test.Add("high");
+            test.Add("medium");
+            test.Add("horrible");
             comboquality.ItemsSource = test;
            
             videoExo.Source = new Uri(urlsMp4[4].url.Remove(4,1));
             videoExo.Play();
         }
-
-       
 
         private void comboquality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

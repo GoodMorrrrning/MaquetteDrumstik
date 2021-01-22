@@ -132,16 +132,13 @@ namespace MaquetteDrumstik
             {
                 SerialiseOneLocalFile = new ObservableCollection<RSlocalFile>();
                 SerialiseOneLocalFile = JsonConvert.DeserializeObject<ObservableCollection<RSlocalFile>>(Jison);
-            }
-            
+            }            
             SerialiseOneLocalFile.Add(new RSlocalFile(url, title));
 
             string jison = JsonConvert.SerializeObject(SerialiseOneLocalFile.ToArray());
 
-            System.IO.File.WriteAllText(localfiledirectory+"\\files.json", jison);
-            
+            System.IO.File.WriteAllText(localfiledirectory+"\\files.json", jison);           
         }
-
         public ObservableCollection<RSlocalFile> RefreshLocalFiles(ObservableCollection<RSlocalFile> localFileAddedByUser, ObservableCollection<RSlocalFile> everyLocalFiles, ObservableCollection<RSlocalFile> defaultRequiredLocalFiles)
         {
             string Jison="";
@@ -154,10 +151,10 @@ namespace MaquetteDrumstik
             }
             else
             {
-                using (StreamReader r = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
+                using (StreamReader streamRead = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
                 {
-                    Jison = r.ReadToEnd();
-                    r.Close();
+                    Jison = streamRead.ReadToEnd();
+                    streamRead.Close();
                 }
             }
            

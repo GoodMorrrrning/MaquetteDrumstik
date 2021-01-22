@@ -14,13 +14,13 @@ using System.Timers;
 
 namespace MaquetteDrumstik.API
 {
-    //
+   
     // RSapiDrumstik.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
-    //
+    
     class RSapiDrumstik
     {
         //privé car on ne doit pas l'utiliser
@@ -65,7 +65,7 @@ namespace MaquetteDrumstik.API
             var myWebRequest = WebRequest.Create(myUri);
             var myHttpWebRequest = (HttpWebRequest)myWebRequest;
             myHttpWebRequest.PreAuthenticate = true;
-            myHttpWebRequest.Headers.Add("Authorization", "Bearer " + Properties.Settings.Default.token);
+            myHttpWebRequest.Headers.Add("Authorization", "Bearer " + getToken());
             myHttpWebRequest.Accept = "application/json";
 
             var myWebResponse = myWebRequest.GetResponse();
@@ -75,12 +75,12 @@ namespace MaquetteDrumstik.API
             var json = myStreamReader.ReadToEnd();
 
             //deserialise
-            List<RSapiExercice> ExoBatterie = JsonConvert.DeserializeObject<List<RSapiExercice>>(json);
+            List<RSapiExercice> drumExercices = JsonConvert.DeserializeObject<List<RSapiExercice>>(json);
 
             responseStream.Close();
             myWebResponse.Close();
             // on retorune une liste d'exercice de batterie
-            return ExoBatterie;
+            return drumExercices;
         }
     }
 }

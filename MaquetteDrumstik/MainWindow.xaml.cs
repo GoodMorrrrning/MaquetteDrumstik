@@ -201,11 +201,7 @@ namespace MaquetteDrumstik
             System.Timers.Timer aTimer = new System.Timers.Timer(5500);
             aTimer.Elapsed += ATimer_Elapsed;
             aTimer.AutoReset = true;
-            aTimer.Enabled = true;
-         
-
-           
-           
+            aTimer.Enabled = true;          
         }
 
         private void ATimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -226,12 +222,12 @@ namespace MaquetteDrumstik
         {
            
             if(unexo.SelectedIndex !=-1) {
-                Modal a = new Modal(this, unexo.SelectedItem);
-                a.ShowDialog();
+                Modal mod = new Modal(this, unexo.SelectedItem);
+                mod.ShowDialog();
             }
             else if(LVexercices.SelectedIndex != -1) {
-                Modal a = new Modal(this, LVexercices.SelectedItem);
-                a.ShowDialog();
+                Modal mod = new Modal(this, LVexercices.SelectedItem);
+                mod.ShowDialog();
             }
             else {
                 MessageBox.Show("Rien n'est sélectionné");
