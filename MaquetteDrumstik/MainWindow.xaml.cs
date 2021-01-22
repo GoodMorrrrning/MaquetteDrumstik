@@ -40,25 +40,25 @@ namespace MaquetteDrumstik
     public partial class MainWindow : Window
     {
       
-      public ObservableCollection<RSExercice> exercices { get; set; } = new ObservableCollection<RSExercice>();
-      public ObservableCollection<RSLocalFile> listefiles { get; set; } = new ObservableCollection<RSLocalFile>();
-       public ObservableCollection<RSLocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<RSLocalFile>();
-        ObservableCollection<RSLocalFile> EveryListFiles { get; set; } = new ObservableCollection<RSLocalFile>();
+      public ObservableCollection<RSexercice> exercices { get; set; } = new ObservableCollection<RSexercice>();
+      public ObservableCollection<RSlocalFile> listefiles { get; set; } = new ObservableCollection<RSlocalFile>();
+       public ObservableCollection<RSlocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<RSlocalFile>();
+        ObservableCollection<RSlocalFile> EveryListFiles { get; set; } = new ObservableCollection<RSlocalFile>();
 
-        RSApiDrumstik api = new RSApiDrumstik();
-        List<RSApiExercice> apiExercices;
+        RSapiDrumstik api = new RSapiDrumstik();
+        List<RSapiExercice> apiExercices;
 
         
-        public ObservableCollection<RSExercice> currentExercices { get; set; }
-    = new ObservableCollection<RSExercice>();
+        public ObservableCollection<RSexercice> currentExercices { get; set; }
+    = new ObservableCollection<RSexercice>();
 
        
         public MainWindow()
         {
-            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
-            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
-            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
-            listefiles.Add(new RSLocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
+            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
+            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
+            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
+            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
           
@@ -79,7 +79,7 @@ namespace MaquetteDrumstik
             }
             Diapo();
             UpdateExercices(exercices);
-            RSCache ca = new RSCache();
+            RScache ca = new RScache();
            
             open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
             
@@ -91,13 +91,13 @@ namespace MaquetteDrumstik
         }
         public void printExercices()
         {
-            RSCache cache = new RSCache();
+            RScache cache = new RScache();
             
-            foreach (RSApiExercice apiEx in apiExercices)
+            foreach (RSapiExercice apiEx in apiExercices)
             {
-                RSExercice exercice = new RSExercice(apiEx);
+                RSexercice exercice = new RSexercice(apiEx);
 
-                RSApiResource thumbnailRes = exercice.getThumbnailResource();
+                RSapiResource thumbnailRes = exercice.getThumbnailResource();
                 if (thumbnailRes != null)
                 {
                     string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
@@ -120,7 +120,7 @@ namespace MaquetteDrumstik
 
       
 
-        public void UpdateExercices(ObservableCollection<RSExercice> filteredExercices)
+        public void UpdateExercices(ObservableCollection<RSexercice> filteredExercices)
         {
             
             ListViewProducts.ItemsSource = filteredExercices;
@@ -128,16 +128,16 @@ namespace MaquetteDrumstik
         }
 
 
-        public ObservableCollection<RSExercice> FilterExercices(string userSearch)
+        public ObservableCollection<RSexercice> FilterExercices(string userSearch)
         {
-            ObservableCollection<RSExercice> FiltreGrille = new ObservableCollection<RSExercice>();
+            ObservableCollection<RSexercice> FiltreGrille = new ObservableCollection<RSexercice>();
 
             // No filter
             if(userSearch == "")
             {
-                foreach(RSApiExercice apiEx in exercices)
+                foreach(RSapiExercice apiEx in exercices)
                 {
-                    FiltreGrille.Add((RSExercice)apiEx);
+                    FiltreGrille.Add((RSexercice)apiEx);
                 }
                 
             } else
@@ -208,10 +208,10 @@ namespace MaquetteDrumstik
             }
 
         }
-        public List<RSApiResource> getListOfResource(List<RSExercice> test)
+        public List<RSapiResource> getListOfResource(List<RSexercice> test)
         {
             
-            List<RSApiResource> t = new List<RSApiResource>();
+            List<RSapiResource> t = new List<RSapiResource>();
            
             for(int i = 0; i < test.Count; i++)
             {
@@ -305,12 +305,12 @@ namespace MaquetteDrumstik
                 AddLocalFile local = new AddLocalFile();
                 if(local.ShowDialog() == true)
                 {
-                    _ = new RSLocalFile(local.Foo.url, local.Foo.title);
+                    _ = new RSlocalFile(local.Foo.url, local.Foo.title);
 
                 }
                 if(local.Foo.url !="" && local.Foo.title != "")
                 {
-                    RSCache ca = new RSCache();
+                    RScache ca = new RScache();
                    
                      ca.cacheLocalFiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
                     
@@ -327,7 +327,7 @@ namespace MaquetteDrumstik
            
             int indexliste = ListViewProducts.SelectedIndex;
             string downloadurl = exercices[indexliste].videoUrl;
-            RSVimeoExtractor tchous = new RSVimeoExtractor();
+            RSvimeoExtractor tchous = new RSvimeoExtractor();
             List<Model.Progressive> ListOfUrls = new List<Progressive>();
             ListOfUrls = tchous.Deserialise(tchous.DownLoad(downloadurl));
 
@@ -338,7 +338,7 @@ namespace MaquetteDrumstik
 
         private void unexo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ObservableCollection<RSExercice> oneExercice = new ObservableCollection<RSExercice>(); oneExercice = (ObservableCollection<RSExercice>)unexo.ItemsSource;
+            ObservableCollection<RSexercice> oneExercice = new ObservableCollection<RSexercice>(); oneExercice = (ObservableCollection<RSexercice>)unexo.ItemsSource;
             MessageBox.Show(oneExercice[0].videoUrl);
         }
     }

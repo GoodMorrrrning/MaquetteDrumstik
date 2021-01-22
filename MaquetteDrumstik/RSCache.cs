@@ -26,14 +26,14 @@ using System.Collections.ObjectModel;
 namespace MaquetteDrumstik
 {
     //
-    // RSCache.cs
+    // RScache.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
 
-    class RSCache 
+    class RScache 
     {
 
         public List<string> testings = new List<string>();
@@ -46,7 +46,7 @@ namespace MaquetteDrumstik
 
        
 
-        public RSCache() { 
+        public RScache() { 
         
             memCache = new Microsoft.Extensions.Caching.Memory.MemoryCache(new MemoryCacheOptions());
 
@@ -60,9 +60,9 @@ namespace MaquetteDrumstik
              localpathfile = Path.Combine(localfiledirectory, "localfiles.json");
         }
 
-        public List<RSApiResource> getListOfApiResources(List<RSExercice> test)
+        public List<RSapiResource> getListOfApiResources(List<RSexercice> test)
         {
-            List<RSApiResource> t = new List<RSApiResource>();
+            List<RSapiResource> t = new List<RSapiResource>();
 
             for (int i = 0; i < test.Count; i++)
             {
@@ -94,7 +94,7 @@ namespace MaquetteDrumstik
 
        
         // Demande de téléchargement d'une image
-        public string downloadThumbnailAsync(RSApiResource thumbnail)
+        public string downloadThumbnailAsync(RSapiResource thumbnail)
         {
             string thumbnailLocalPath = Path.Combine(specificFolder, thumbnail.name);
 
@@ -125,7 +125,7 @@ namespace MaquetteDrumstik
 
       
 
-        public void cacheLocalFiles(ObservableCollection<RSLocalFile> SerialiseOneLocalFile, string url, string title)
+        public void cacheLocalFiles(ObservableCollection<RSlocalFile> SerialiseOneLocalFile, string url, string title)
         {
             string Jison;
           
@@ -137,11 +137,11 @@ namespace MaquetteDrumstik
             }
             if(Jison != "")
             {
-                SerialiseOneLocalFile = new ObservableCollection<RSLocalFile>();
-                SerialiseOneLocalFile = JsonConvert.DeserializeObject<ObservableCollection<RSLocalFile>>(Jison);
+                SerialiseOneLocalFile = new ObservableCollection<RSlocalFile>();
+                SerialiseOneLocalFile = JsonConvert.DeserializeObject<ObservableCollection<RSlocalFile>>(Jison);
             }
             
-            SerialiseOneLocalFile.Add(new RSLocalFile(url, title));
+            SerialiseOneLocalFile.Add(new RSlocalFile(url, title));
 
             string jison = JsonConvert.SerializeObject(SerialiseOneLocalFile.ToArray());
 
@@ -149,7 +149,7 @@ namespace MaquetteDrumstik
             
         }
 
-        public ObservableCollection<RSLocalFile> RefreshLocalFiles(ObservableCollection<RSLocalFile> localFileAddedByUser, ObservableCollection<RSLocalFile> everyLocalFiles, ObservableCollection<RSLocalFile> defaultRequiredLocalFiles)
+        public ObservableCollection<RSlocalFile> RefreshLocalFiles(ObservableCollection<RSlocalFile> localFileAddedByUser, ObservableCollection<RSlocalFile> everyLocalFiles, ObservableCollection<RSlocalFile> defaultRequiredLocalFiles)
         {
             string Jison="";
             
@@ -169,7 +169,7 @@ namespace MaquetteDrumstik
             }
            
 
-            localFileAddedByUser = JsonConvert.DeserializeObject<ObservableCollection<RSLocalFile>>(Jison);
+            localFileAddedByUser = JsonConvert.DeserializeObject<ObservableCollection<RSlocalFile>>(Jison);
             everyLocalFiles.Clear();
             if(localFileAddedByUser != null)
             {

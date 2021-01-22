@@ -59,9 +59,9 @@ namespace MaquetteDrumstik
                 }           
             
         }
-        public RSLocalFile Foo
+        public RSlocalFile Foo
         {
-            get { return new RSLocalFile(filename, resourceName.Text); }
+            get { return new RSlocalFile(filename, resourceName.Text); }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

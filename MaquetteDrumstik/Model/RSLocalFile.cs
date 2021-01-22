@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace MaquetteDrumstik.Model
 {
     //
-    // RSLocalFile.cs
+    // RSlocalFile.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
-    public class RSLocalFile
+    public class RSlocalFile
     {
         public string url { get; set; }
         public string title { get; set; }
 
-       public RSLocalFile(string pUrl, string pTitle)
+       public RSlocalFile(string pUrl, string pTitle)
         {
             url = pUrl;
             title = pTitle;

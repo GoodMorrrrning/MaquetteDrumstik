@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace MaquetteDrumstik.API
 {
     //
-    // RSApiToken.cs
+    // RSapiToken.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
-    public class RSApiToken
+    public class RSapiToken
     {
         [JsonProperty("access_token")]
         public string AccesToken { get; set; }

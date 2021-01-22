@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace MaquetteDrumstik.Model
 {
     //
-    // RSVimeoExtractor.cs
+    // RSvimeoExtractor.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
-    class RSVimeoExtractor
+    class RSvimeoExtractor
     {
 
         public string DownLoad(string url)
@@ -42,20 +42,12 @@ namespace MaquetteDrumstik.Model
             string jison = readjson.ReadToEnd();
             readjson.Close();
 
+            RSdeserializeClass rS_Deserialize = new RSdeserializeClass();
 
-
-            RSDeserializeClass rS_Deserialize = new RSDeserializeClass();
-
-
-
-
-
-            rS_Deserialize = JsonConvert.DeserializeObject<RSDeserializeClass>(jison);
+            rS_Deserialize = JsonConvert.DeserializeObject<RSdeserializeClass>(jison);
 
             return rS_Deserialize.request.files.progressive;
         }
-
-
 
     }
 }

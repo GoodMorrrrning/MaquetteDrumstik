@@ -15,13 +15,13 @@ using System.Timers;
 namespace MaquetteDrumstik.API
 {
     //
-    // RSApiDrumstik.cs
+    // RSapiDrumstik.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
-    class RSApiDrumstik
+    class RSapiDrumstik
     {
         //privé car on ne doit pas l'utiliser
         private string getToken()
@@ -44,7 +44,7 @@ namespace MaquetteDrumstik.API
                     var response = httpClient.SendAsync(request);
 
                     //Deserialise
-                    RSApiToken test = JsonConvert.DeserializeObject<RSApiToken>(response.Result.Content.ReadAsStringAsync().Result);
+                    RSapiToken test = JsonConvert.DeserializeObject<RSapiToken>(response.Result.Content.ReadAsStringAsync().Result);
 
                     return test.AccesToken;
                 }
@@ -56,7 +56,7 @@ namespace MaquetteDrumstik.API
             Properties.Settings.Default.token = getToken();
             Properties.Settings.Default.Save();
         }
-        public List<RSApiExercice> getExercices()
+        public List<RSapiExercice> getExercices()
         {
          
         
@@ -75,7 +75,7 @@ namespace MaquetteDrumstik.API
             var json = myStreamReader.ReadToEnd();
 
             //deserialise
-            List<RSApiExercice> ExoBatterie = JsonConvert.DeserializeObject<List<RSApiExercice>>(json);
+            List<RSapiExercice> ExoBatterie = JsonConvert.DeserializeObject<List<RSapiExercice>>(json);
 
             responseStream.Close();
             myWebResponse.Close();

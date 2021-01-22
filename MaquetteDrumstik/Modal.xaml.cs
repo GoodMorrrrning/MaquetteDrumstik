@@ -27,12 +27,12 @@ namespace MaquetteDrumstik
         public bool UtilisateurVeutIlQuitter;
         MainWindow a;
         
-        RSExercice unExo;
+        RSexercice unExo;
         public Modal(MainWindow ab, object haha)
         {
             
             
-                unExo = (RSExercice)haha; 
+                unExo = (RSexercice)haha; 
             a = ab;
             InitializeComponent();
             LaTextbox.Text = unExo.title;

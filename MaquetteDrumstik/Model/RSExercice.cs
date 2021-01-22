@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 namespace MaquetteDrumstik.Model
 {
     //
-    // RSExercice.cs
+    // RSexercice.cs
     // Drumstik
     //
     // Created by martin on 22/10/2020.
     // Copyright (c) 2021 Rimsoft. All rights reserved.
     //
-    public class RSExercice : RSApiExercice
+    public class RSexercice : RSapiExercice
     {
-        readonly private List<RSApiExercice> _apiExercices;
+        readonly private List<RSapiExercice> _apiExercices;
 
-        public RSExercice(RSApiExercice data)
+        public RSexercice(RSapiExercice data)
         {
             this.id = data.id;
             this.uuid = data.uuid;
@@ -39,7 +39,7 @@ namespace MaquetteDrumstik.Model
             this.resources = data.resources;
         }
 
-        public RSExercice(List<RSApiExercice> apiExercices)
+        public RSexercice(List<RSapiExercice> apiExercices)
         {
             this._apiExercices = apiExercices;
         }
