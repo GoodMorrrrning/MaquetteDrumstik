@@ -151,10 +151,10 @@ namespace MaquetteDrumstik
             }
             else
             {
-                using (StreamReader r = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
+                using (StreamReader streamRead = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
                 {
-                    Jison = r.ReadToEnd();
-                    r.Close();
+                    Jison = streamRead.ReadToEnd();
+                    streamRead.Close();
                 }
             }
            

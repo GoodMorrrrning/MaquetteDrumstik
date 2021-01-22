@@ -108,7 +108,6 @@ namespace MaquetteDrumstik
             LVexercices.ItemsSource = filteredExercices;        
         }
 
-
         public ObservableCollection<RSexercice> FilterExercices(string userSearch)
         {
             ObservableCollection<RSexercice> FiltreGrille = new ObservableCollection<RSexercice>();
@@ -129,7 +128,6 @@ namespace MaquetteDrumstik
             }
             return FiltreGrille;
         }
-
 
         private void Recherche_TextChanged_1(object sender, TextChangedEventArgs e)
         {

@@ -56,13 +56,11 @@ namespace MaquetteDrumstik
                      filename = chooseLocalFile.FileName;                           
                 Pathfile.Text = filename;
                 }           
-            
         }
         public RSlocalFile Foo
         {
             get { return new RSlocalFile(filename, resourceName.Text); }
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (filename == "" || resourceName.Text == "") {
