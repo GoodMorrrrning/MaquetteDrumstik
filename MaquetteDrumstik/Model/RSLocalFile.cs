@@ -19,10 +19,10 @@ namespace MaquetteDrumstik.Model
         public string title { get; set; }
 
        public RSlocalFile(string pUrl, string pTitle)
-        {
+       {
             url = pUrl;
             title = pTitle;
-        }
+       }
 
     }
     
