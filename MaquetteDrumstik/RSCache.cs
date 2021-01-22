@@ -49,7 +49,6 @@ namespace MaquetteDrumstik
         public RScache() { 
         
             memCache = new Microsoft.Extensions.Caching.Memory.MemoryCache(new MemoryCacheOptions());
-
             folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             // Combine the base folder with your specific folder....
@@ -104,8 +103,7 @@ namespace MaquetteDrumstik
                 while (true)
                 {
                     try
-                    {
-                       
+                    {                      
                         client.DownloadFileAsync(ur, thumbnailLocalPath);
                         Task.Delay(2500).Wait();
                         break;
@@ -116,13 +114,8 @@ namespace MaquetteDrumstik
                     }
                 }
             }
-
-
-
             return thumbnailLocalPath;
-
         }
-
       
 
         public void cacheLocalFiles(ObservableCollection<RSlocalFile> SerialiseOneLocalFile, string url, string title)
@@ -173,8 +166,8 @@ namespace MaquetteDrumstik
             everyLocalFiles.Clear();
             if(localFileAddedByUser != null)
             {
-                foreach (var p in defaultRequiredLocalFiles.Union(localFileAddedByUser))
-                    everyLocalFiles.Add(p);
+                foreach (var Lfiles in defaultRequiredLocalFiles.Union(localFileAddedByUser))
+                    everyLocalFiles.Add(Lfiles);
             }
             else
             {

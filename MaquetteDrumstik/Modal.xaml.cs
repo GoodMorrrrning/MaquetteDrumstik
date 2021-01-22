@@ -25,18 +25,15 @@ namespace MaquetteDrumstik
     public partial class Modal : Window
     {
         public bool UtilisateurVeutIlQuitter;
-        MainWindow a;
+        MainWindow mainWin;
         
         RSexercice unExo;
-        public Modal(MainWindow ab, object haha)
-        {
-            
-            
-                unExo = (RSexercice)haha; 
-            a = ab;
+        public Modal(MainWindow modalWin, object haha)
+        {                    
+            unExo = (RSexercice)haha; 
+            mainWin = modalWin;
             InitializeComponent();
-            LaTextbox.Text = unExo.title;
-          
+            LaTextbox.Text = unExo.title;        
         }
         
        
@@ -44,16 +41,15 @@ namespace MaquetteDrumstik
        
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-           
+        {           
             this.Close();
-            a.Close();
+            mainWin.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             unExo.title = LaTextbox.Text;
-            a.turborefresh();
+            mainWin.refreshExcercices();
             this.Close();
         }
     }

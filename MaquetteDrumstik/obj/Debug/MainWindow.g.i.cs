@@ -58,7 +58,7 @@ namespace MaquetteDrumstik {
         
         #line 67 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.ListBox ListViewProducts;
+        internal System.Windows.Controls.ListBox LVexercices;
         
         #line default
         #line hidden
@@ -194,10 +194,10 @@ namespace MaquetteDrumstik {
             #line hidden
             return;
             case 3:
-            this.ListViewProducts = ((System.Windows.Controls.ListBox)(target));
+            this.LVexercices = ((System.Windows.Controls.ListBox)(target));
             
             #line 67 "..\..\MainWindow.xaml"
-            this.ListViewProducts.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ListViewProducts_MouseDoubleClick);
+            this.LVexercices.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ListViewProducts_MouseDoubleClick);
             
             #line default
             #line hidden

@@ -61,7 +61,7 @@ namespace MaquetteDrumstik
             listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
-          
+         
             this.DataContext = this;
             apiExercices = api.getExercices();
            
@@ -72,17 +72,13 @@ namespace MaquetteDrumstik
 
              _= printExercicesAsync();
             
-            if (exercices.Count > 0)
-            {
+            if (exercices.Count > 0) {
                 currentExercices.Add(exercices.First());
-
             }
-            Diapo();
+            sideShow();
             UpdateExercices(exercices);
-            RScache ca = new RScache();
-           
-            open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
-            
+            RScache cache = new RScache();
+            open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);      
         }
         
         public async Task printExercicesAsync()
@@ -93,38 +89,23 @@ namespace MaquetteDrumstik
         {
             RScache cache = new RScache();
             
-            foreach (RSapiExercice apiEx in apiExercices)
-            {
+            foreach (RSapiExercice apiEx in apiExercices) {
                 RSexercice exercice = new RSexercice(apiEx);
-
                 RSapiResource thumbnailRes = exercice.getThumbnailResource();
-                if (thumbnailRes != null)
-                {
+                if (thumbnailRes != null) {
                     string thumbnailLocalPath = cache.getLocalPathForURL(thumbnailRes.url, thumbnailRes.name);
-                    if (thumbnailLocalPath == null)
-                    {
+                    if (thumbnailLocalPath == null) {
                         thumbnailLocalPath = cache.downloadThumbnailAsync(thumbnailRes);
-
                     }
-
                     exercice.ThumbnailLocalPath = thumbnailLocalPath;
-
                 }
-
-
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => this.exercices.Add(exercice)));
-               
-
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => this.exercices.Add(exercice)));            
             }
         }
-
       
-
         public void UpdateExercices(ObservableCollection<RSexercice> filteredExercices)
-        {
-            
-            ListViewProducts.ItemsSource = filteredExercices;
-          
+        {         
+            LVexercices.ItemsSource = filteredExercices;        
         }
 
 
@@ -133,37 +114,27 @@ namespace MaquetteDrumstik
             ObservableCollection<RSexercice> FiltreGrille = new ObservableCollection<RSexercice>();
 
             // No filter
-            if(userSearch == "")
-            {
-                foreach(RSapiExercice apiEx in exercices)
-                {
+            if(userSearch == "") {
+                foreach(RSapiExercice apiEx in exercices) {
                     FiltreGrille.Add((RSexercice)apiEx);
                 }
-                
-            } else
-            {
+              
+            } else {
                 // Applique le filtre
-                for (int i = 0; i < exercices.Count; i++)
-                {
-                    if (exercices[i].title.ToUpper().Contains(userSearch.ToUpper()) && userSearch != "")
-                    {
-                        FiltreGrille.Add(exercices[i]);
-                       
+                for (int i = 0; i < exercices.Count; i++) {
+                    if (exercices[i].title.ToUpper().Contains(userSearch.ToUpper()) && userSearch != "") {
+                        FiltreGrille.Add(exercices[i]);                       
                     }
                 }
             }
-
             return FiltreGrille;
         }
-
-
-
 
 
         private void Recherche_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             UpdateExercices(FilterExercices(Recherche.Text));
-            ListViewProducts.Items.Refresh();
+            LVexercices.Items.Refresh();
         }
 
         private void LaToolbar_Loaded(object sender, RoutedEventArgs e)
@@ -172,65 +143,50 @@ namespace MaquetteDrumstik
 
             ToolBar toolBar = sender as ToolBar;
             var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
-            if (overflowGrid != null)
-            {
+            if (overflowGrid != null) {
                 overflowGrid.Visibility = Visibility.Collapsed;
             }
 
             var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
-            if (mainPanelBorder != null)
-            {
+            if (mainPanelBorder != null) {
                 mainPanelBorder.Margin = new Thickness(0);
             }
-
         }
         double pos = 0;
         
         private void SliderGauche_Click(object sender, RoutedEventArgs e)
         {
-            if (pos > 0)
-            {
+            if (pos > 0) {
                 pos += -300;
                 scroll.ScrollToHorizontalOffset(pos);
             }
-
-
         }
 
         private void sliderDroit_Click(object sender, RoutedEventArgs e)
         {
-
-           
-            if (scroll.ScrollableWidth > pos)
-            {
+       
+            if (scroll.ScrollableWidth > pos) {
                 pos += scroll.ScrollableWidth/6;
                 scroll.ScrollToHorizontalOffset(pos);
             }
 
         }
-        public List<RSapiResource> getListOfResource(List<RSexercice> test)
+        public List<RSapiResource> getListOfResource(List<RSexercice> exercice)
         {
             
-            List<RSapiResource> t = new List<RSapiResource>();
+            List<RSapiResource> apiResources = new List<RSapiResource>();
            
-            for(int i = 0; i < test.Count; i++)
-            {
-                for (int a = 0; a < test[i].resources.Count; a++)
-                {
+            for(int i = 0; i < exercice.Count; i++) {
+                for (int a = 0; a < exercice[i].resources.Count; a++) {
                    
-                    if (test[i].resources[a].type == "resource.thumbnail")
-                    {
-                        
-                       
-                        t.Add(test[i].resources[a]);
-                       
-
+                    if (exercice[i].resources[a].type == "resource.thumbnail") {                                            
+                        apiResources.Add(exercice[i].resources[a]);                     
                     }
                 }
                 
             }
             
-            return t;
+            return apiResources;
         }
 
        
@@ -240,7 +196,7 @@ namespace MaquetteDrumstik
             api.refreshToken();
         }
 
-        public void Diapo()
+        public void sideShow()
         {
             System.Timers.Timer aTimer = new System.Timers.Timer(5500);
             aTimer.Elapsed += ATimer_Elapsed;
@@ -254,13 +210,11 @@ namespace MaquetteDrumstik
 
         private void ATimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Random r = new Random();
+            Random rand = new Random();
             
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Clear()));
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[r.Next(0, exercices.Count)])));
-          
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.currentExercices.Add(exercices[rand.Next(0, exercices.Count)])));
            
-            
         }
 
         private void twoo_TextChanged(object sender, TextChangedEventArgs e)
@@ -271,18 +225,15 @@ namespace MaquetteDrumstik
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
            
-            if(unexo.SelectedIndex !=-1)
-            {
+            if(unexo.SelectedIndex !=-1) {
                 Modal a = new Modal(this, unexo.SelectedItem);
                 a.ShowDialog();
             }
-            else if(ListViewProducts.SelectedIndex != -1)
-            {
-                Modal a = new Modal(this, ListViewProducts.SelectedItem);
+            else if(LVexercices.SelectedIndex != -1) {
+                Modal a = new Modal(this, LVexercices.SelectedItem);
                 a.ShowDialog();
             }
-            else
-            {
+            else {
                 MessageBox.Show("Rien n'est sélectionné");
             }
 
@@ -292,41 +243,35 @@ namespace MaquetteDrumstik
             
         }
 
-       public void turborefresh()
+       public void refreshExcercices()
         {
-            ListViewProducts.Items.Refresh();
+            LVexercices.Items.Refresh();
         }
 
         private void open_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
           
-           if(open.SelectedIndex == 0)
-            {
+           if(open.SelectedIndex == 0) {
                 AddLocalFile local = new AddLocalFile();
-                if(local.ShowDialog() == true)
-                {
+                if(local.ShowDialog() == true) {
                     _ = new RSlocalFile(local.Foo.url, local.Foo.title);
 
                 }
-                if(local.Foo.url !="" && local.Foo.title != "")
-                {
-                    RScache ca = new RScache();
+                if(local.Foo.url !="" && local.Foo.title != "") {
+                    RScache cache = new RScache();
                    
-                     ca.cacheLocalFiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
-                    
-
-                  
-                    open.ItemsSource = ca.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
-                }
-               
+                     cache.cacheLocalFiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
+                                     
+                    open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
+                }             
             }
         }
 
         private void ListViewProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
            
-            int indexliste = ListViewProducts.SelectedIndex;
-            string downloadurl = exercices[indexliste].videoUrl;
+            int indexlist = LVexercices.SelectedIndex;
+            string downloadurl = exercices[indexlist].videoUrl;
             RSvimeoExtractor tchous = new RSvimeoExtractor();
             List<Model.Progressive> ListOfUrls = new List<Progressive>();
             ListOfUrls = tchous.Deserialise(tchous.DownLoad(downloadurl));
