@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="PrintVideo" Height="450" Width="800">
     <Grid Margin="10,0,2,-21" Height="auto" Width="auto">
-        <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Manual" Name="videoExo" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Bottom" Width="auto" Margin="0,0,28,24"/>
+        <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Manual" Name="videoExercices" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Bottom" Width="auto" Margin="0,0,28,24"/>
         <ComboBox SelectionChanged="comboquality_SelectionChanged" Name="comboquality" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="79"/>
 
     </Grid>

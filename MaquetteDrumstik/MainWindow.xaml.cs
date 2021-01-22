@@ -41,7 +41,7 @@ namespace MaquetteDrumstik
     {
       
       public ObservableCollection<RSexercice> exercices { get; set; } = new ObservableCollection<RSexercice>();
-      public ObservableCollection<RSlocalFile> listefiles { get; set; } = new ObservableCollection<RSlocalFile>();
+      public ObservableCollection<RSlocalFile> listOfFiles { get; set; } = new ObservableCollection<RSlocalFile>();
        public ObservableCollection<RSlocalFile> LocalfilesAddedByUser { get; set; } = new ObservableCollection<RSlocalFile>();
         ObservableCollection<RSlocalFile> EveryListFiles { get; set; } = new ObservableCollection<RSlocalFile>();
 
@@ -55,10 +55,10 @@ namespace MaquetteDrumstik
        
         public MainWindow()
         {
-            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
-            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
-            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
-            listefiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
+            listOfFiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\plus.png", "Ajouter un fichier local "));
+            listOfFiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock1.jpg", "mocktitle1"));
+            listOfFiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock2.jpg", "mocktitle2"));
+            listOfFiles.Add(new RSlocalFile(@"C:\Users\marti\Desktop\Drumstik\mock3.png", "mocktitle3"));
 
             InitializeComponent();
          
@@ -78,7 +78,7 @@ namespace MaquetteDrumstik
             sideShow();
             UpdateExercices(exercices);
             RScache cache = new RScache();
-            open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);      
+            open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listOfFiles);      
         }
         
         public async Task printExercicesAsync()
@@ -110,23 +110,23 @@ namespace MaquetteDrumstik
 
         public ObservableCollection<RSexercice> FilterExercices(string userSearch)
         {
-            ObservableCollection<RSexercice> FiltreGrille = new ObservableCollection<RSexercice>();
+            ObservableCollection<RSexercice> filteredGrid = new ObservableCollection<RSexercice>();
 
             // No filter
             if(userSearch == "") {
                 foreach(RSapiExercice apiEx in exercices) {
-                    FiltreGrille.Add((RSexercice)apiEx);
+                    filteredGrid.Add((RSexercice)apiEx);
                 }
               
             } else {
                 // Applique le filtre
                 for (int i = 0; i < exercices.Count; i++) {
                     if (exercices[i].title.ToUpper().Contains(userSearch.ToUpper()) && userSearch != "") {
-                        FiltreGrille.Add(exercices[i]);                       
+                        filteredGrid.Add(exercices[i]);                       
                     }
                 }
             }
-            return FiltreGrille;
+            return filteredGrid;
         }
 
         private void Recherche_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -135,7 +135,7 @@ namespace MaquetteDrumstik
             LVexercices.Items.Refresh();
         }
 
-        private void LaToolbar_Loaded(object sender, RoutedEventArgs e)
+        private void Toolbar_Loaded(object sender, RoutedEventArgs e)
         {
             // copié collé, sert a supprimer la fleche moche a droite de la toolbar
 
@@ -152,26 +152,22 @@ namespace MaquetteDrumstik
         }
         double pos = 0;
         
-        private void SliderGauche_Click(object sender, RoutedEventArgs e)
+        private void LeftSlider_Click(object sender, RoutedEventArgs e)
         {
             if (pos > 0) {
                 pos += -300;
                 scroll.ScrollToHorizontalOffset(pos);
             }
         }
-
-        private void sliderDroit_Click(object sender, RoutedEventArgs e)
-        {
-       
+        private void RightSlider_Click(object sender, RoutedEventArgs e)
+        {      
             if (scroll.ScrollableWidth > pos) {
                 pos += scroll.ScrollableWidth/6;
                 scroll.ScrollToHorizontalOffset(pos);
             }
-
         }
         public List<RSapiResource> getListOfResource(List<RSexercice> exercice)
-        {
-            
+        {          
             List<RSapiResource> apiResources = new List<RSapiResource>();
            
             for(int i = 0; i < exercice.Count; i++) {
@@ -182,18 +178,14 @@ namespace MaquetteDrumstik
                     }
                 }
                 
-            }
-            
+            }            
             return apiResources;
-        }
-
-       
+        }    
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             api.refreshToken();
         }
-
         public void sideShow()
         {
             System.Timers.Timer aTimer = new System.Timers.Timer(5500);
@@ -229,12 +221,7 @@ namespace MaquetteDrumstik
             }
             else {
                 MessageBox.Show("Rien n'est sélectionné");
-            }
-
-            
-           
-           
-            
+            }                                      
         }
 
        public void refreshExcercices()
@@ -249,14 +236,13 @@ namespace MaquetteDrumstik
                 AddLocalFile local = new AddLocalFile();
                 if(local.ShowDialog() == true) {
                     _ = new RSlocalFile(local.Foo.url, local.Foo.title);
-
                 }
                 if(local.Foo.url !="" && local.Foo.title != "") {
                     RScache cache = new RScache();
                    
                      cache.cacheLocalFiles(LocalfilesAddedByUser, local.Foo.url, local.Foo.title);
                                      
-                    open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listefiles);
+                    open.ItemsSource = cache.RefreshLocalFiles(LocalfilesAddedByUser, EveryListFiles, listOfFiles);
                 }             
             }
         }
@@ -266,9 +252,9 @@ namespace MaquetteDrumstik
            
             int indexlist = LVexercices.SelectedIndex;
             string downloadurl = exercices[indexlist].videoUrl;
-            RSvimeoExtractor tchous = new RSvimeoExtractor();
+            RSvimeoExtractor vimeo = new RSvimeoExtractor();
             List<Model.Progressive> ListOfUrls = new List<Progressive>();
-            ListOfUrls = tchous.Deserialise(tchous.DownLoad(downloadurl));
+            ListOfUrls = vimeo.Deserialise(vimeo.DownLoad(downloadurl));
 
             PrintVideo printVideo = new PrintVideo(ListOfUrls);
             printVideo.ShowDialog();

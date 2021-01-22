@@ -61,7 +61,7 @@ namespace MaquetteDrumstik
 
         public List<RSapiResource> getListOfApiResources(List<RSexercice> test)
         {
-            List<RSapiResource> t = new List<RSapiResource>();
+            List<RSapiResource> ListOfResources = new List<RSapiResource>();
 
             for (int i = 0; i < test.Count; i++)
             {
@@ -69,47 +69,40 @@ namespace MaquetteDrumstik
                 {
                     if (test[i].resources[a].type == "resource.thumbnail")
                     {
-                        t.Add(test[i].resources[a]);
+                        ListOfResources.Add(test[i].resources[a]);
                     }
                 }
 
             }
-            return t;
+            return ListOfResources;
         }
 
         public string getLocalPathForURL(string url, string name)
         {
             string localPath = null;
-            if(memCache.TryGetValue(name, out localPath))
-            {
-            
+            if(memCache.TryGetValue(name, out localPath)) {          
                 return Path.Combine(specificFolder, localPath);
             }
             memCache.Set(name, name);
-            
            
             return null;
         }
-
-       
+     
         // Demande de téléchargement d'une image
         public string downloadThumbnailAsync(RSapiResource thumbnail)
         {
             string thumbnailLocalPath = Path.Combine(specificFolder, thumbnail.name);
 
-            using (WebClient client = new WebClient())
+            using (WebClient wbClient = new WebClient())
             {
                 Uri ur = new Uri(thumbnail.url);
-                while (true)
-                {
-                    try
-                    {                      
-                        client.DownloadFileAsync(ur, thumbnailLocalPath);
+                while(true) {
+                    try {                      
+                        wbClient.DownloadFileAsync(ur, thumbnailLocalPath);
                         Task.Delay(2500).Wait();
                         break;
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                         MessageBox.Show(e.Message);
                     }
                 }
@@ -128,8 +121,7 @@ namespace MaquetteDrumstik
                 Jison = red.ReadToEnd();
                 red.Close();
             }
-            if(Jison != "")
-            {
+            if(Jison != "") {
                 SerialiseOneLocalFile = new ObservableCollection<RSlocalFile>();
                 SerialiseOneLocalFile = JsonConvert.DeserializeObject<ObservableCollection<RSlocalFile>>(Jison);
             }            
@@ -144,13 +136,11 @@ namespace MaquetteDrumstik
             string Jison="";
             
             
-            if (!File.Exists(localfiledirectory + "\\files.json"))
-            {
+            if (!File.Exists(localfiledirectory + "\\files.json")) {
                 File.Create(Path.Combine(localfiledirectory, "files.json"));
                 
             }
-            else
-            {
+            else {
                 using (StreamReader streamRead = new StreamReader(Path.Combine(localfiledirectory, "files.json")))
                 {
                     Jison = streamRead.ReadToEnd();
@@ -161,13 +151,11 @@ namespace MaquetteDrumstik
 
             localFileAddedByUser = JsonConvert.DeserializeObject<ObservableCollection<RSlocalFile>>(Jison);
             everyLocalFiles.Clear();
-            if(localFileAddedByUser != null)
-            {
+            if(localFileAddedByUser != null) {
                 foreach (var Lfiles in defaultRequiredLocalFiles.Union(localFileAddedByUser))
                     everyLocalFiles.Add(Lfiles);
             }
-            else
-            {
+            else {
                 everyLocalFiles = defaultRequiredLocalFiles;
             }
            

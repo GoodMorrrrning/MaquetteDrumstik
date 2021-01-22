@@ -43,7 +43,7 @@ namespace MaquetteDrumstik {
         
         #line 14 "..\..\Modal.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.TextBox LaTextbox;
+        internal System.Windows.Controls.TextBox titleBox;
         
         #line default
         #line hidden
@@ -95,7 +95,7 @@ namespace MaquetteDrumstik {
             #line hidden
             return;
             case 3:
-            this.LaTextbox = ((System.Windows.Controls.TextBox)(target));
+            this.titleBox = ((System.Windows.Controls.TextBox)(target));
             return;
             }
             this._contentLoaded = true;

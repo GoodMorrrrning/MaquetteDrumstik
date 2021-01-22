@@ -43,7 +43,7 @@ namespace MaquetteDrumstik {
         
         #line 10 "..\..\PrintVideo.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.MediaElement videoExo;
+        internal System.Windows.Controls.MediaElement videoExercices;
         
         #line default
         #line hidden
@@ -87,7 +87,7 @@ namespace MaquetteDrumstik {
             switch (connectionId)
             {
             case 1:
-            this.videoExo = ((System.Windows.Controls.MediaElement)(target));
+            this.videoExercices = ((System.Windows.Controls.MediaElement)(target));
             return;
             case 2:
             this.comboquality = ((System.Windows.Controls.ComboBox)(target));

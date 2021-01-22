@@ -31,34 +31,34 @@ namespace MaquetteDrumstik
             InitializeComponent();
             
         
-            List<string> test = new List<string>();
-            test.Add("high");
-            test.Add("medium");
-            test.Add("horrible");
-            comboquality.ItemsSource = test;
+            List<string> Quality = new List<string>();
+            Quality.Add("high");
+            Quality.Add("medium");
+            Quality.Add("horrible");
+            comboquality.ItemsSource = Quality;
            
-            videoExo.Source = new Uri(urlsMp4[4].url.Remove(4,1));
-            videoExo.Play();
+            videoExercices.Source = new Uri(urlsMp4[4].url.Remove(4,1));
+            videoExercices.Play();
         }
 
         private void comboquality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            videoExo.Stop();
+            videoExercices.Stop();
 
             if (comboquality.SelectedIndex == 0) {
                 NEWmp4Url = generalscope[4].url.Remove(4, 1);
-                videoExo.Source = new Uri(NEWmp4Url);
-                videoExo.Play();
+                videoExercices.Source = new Uri(NEWmp4Url);
+                videoExercices.Play();
             }
             if (comboquality.SelectedIndex == 1) {
                 NEWmp4Url = generalscope[2].url.Remove(4, 1);
-                videoExo.Source = new Uri(NEWmp4Url);
-                videoExo.Play();
+                videoExercices.Source = new Uri(NEWmp4Url);
+                videoExercices.Play();
             }
             if (comboquality.SelectedIndex == 2) {               
                 NEWmp4Url = generalscope[0].url.Remove(4, 1);
-                videoExo.Source = new Uri(NEWmp4Url);
-                videoExo.Play();
+                videoExercices.Source = new Uri(NEWmp4Url);
+                videoExercices.Play();
             }
 
         }
