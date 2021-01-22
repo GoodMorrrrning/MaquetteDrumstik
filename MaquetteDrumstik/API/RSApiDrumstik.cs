@@ -65,7 +65,7 @@ namespace MaquetteDrumstik.API
             var myWebRequest = WebRequest.Create(myUri);
             var myHttpWebRequest = (HttpWebRequest)myWebRequest;
             myHttpWebRequest.PreAuthenticate = true;
-            myHttpWebRequest.Headers.Add("Authorization", "Bearer " + getToken());
+            myHttpWebRequest.Headers.Add("Authorization", "Bearer " + Properties.Settings.Default.token);
             myHttpWebRequest.Accept = "application/json";
 
             var myWebResponse = myWebRequest.GetResponse();

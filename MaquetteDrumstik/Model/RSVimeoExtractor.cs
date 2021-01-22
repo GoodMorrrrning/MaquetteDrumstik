@@ -26,12 +26,12 @@ namespace MaquetteDrumstik.Model
                 url = url + @"\config";
                 string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string specificFolder = Path.Combine(folder, "VimeoTruc");
-                string fileVimeConfigJson = Path.Combine(specificFolder, "vimeoConfig.json");
+                string fileVimeoConfigJson = Path.Combine(specificFolder, "vimeoConfig.json");
                 Directory.CreateDirectory(specificFolder);
 
-                client.DownloadFile(url, fileVimeConfigJson);
+                client.DownloadFile(url, fileVimeoConfigJson);
 
-                return fileVimeConfigJson;
+                return fileVimeoConfigJson;
             }
 
         }
